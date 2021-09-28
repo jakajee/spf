@@ -5,7 +5,8 @@ import Home from './components/Home';
 import Counter from './components/Counter';
 import FetchData from './components/FetchData';
 
-import './custom.css'
+import '../node_modules/bootswatch/dist/flatly/bootstrap.min.css';
+import './custom.css';
 
 export default () => (
     <Layout>
