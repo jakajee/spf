@@ -5,10 +5,9 @@ using System.Threading.Tasks;
 
 namespace SPF_Receipt.DataModel
 {
-    public class Product
+    public class Payment
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
-        public Unit Unit { get; set; }
     }
 }

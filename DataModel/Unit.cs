@@ -1,14 +1,14 @@
-﻿using System;
+﻿using SPF_Receipt.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace SPF_Receipt.DataModel
 {
-    public class Product
+    public class Unit
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
-        public Unit Unit { get; set; }
     }
 }
