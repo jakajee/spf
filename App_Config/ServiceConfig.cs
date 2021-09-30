@@ -12,6 +12,9 @@ namespace SPF_Receipt.App_Config
         public static void Configure(IServiceCollection services)
         {
             services.AddTransient<IProductRepository, ProductRepository>();
+            services.AddTransient<IPaymentRepository, PaymentRepository>();
+            services.AddTransient<ICustomerRepository, CustomerRepository>();
+            services.AddTransient<IUnitRepository, UnitRepository>();
         }
     }
 }

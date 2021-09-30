@@ -15,5 +15,6 @@ namespace SPF_Receipt.DataAccess.Base
         void Insert(params TObject[] entity);
         void Delete(object id);
         void Update(params TObject[] entity);
+        bool Exists(Expression<Func<TObject, bool>> expr);
     }
 }

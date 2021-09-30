@@ -28,6 +28,9 @@ namespace SPF_Receipt.DataAccess.Base
         public void Update(params TObject[] entity)
             => InitConnection(table => table.Update(entity));
 
+        public bool Exists(Expression<Func<TObject, bool>> expr)
+            => InitConnection(table => table.Exists(expr));
+
         private TResponse InitConnection<TResponse>(Func<ILiteCollection<TObject>, TResponse> action)
         {
             using (var db = new LiteDatabase("SPF.db"))

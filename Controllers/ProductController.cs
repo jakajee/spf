@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SPF_Receipt.DataAccess;
 using SPF_Receipt.DataModel;
+using SPF_Receipt.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,24 +9,23 @@ using System.Threading.Tasks;
 
 namespace SPF_Receipt.Controllers
 {
-    [ApiController]
     [Route("products/[action]")]
-    public class ProductController : ControllerBase
+    public class ProductController : BaseController<IProductRepository, Product>
     {
-        private readonly IProductRepository productRepository;
-
-        public ProductController(
-                IProductRepository productRepository
-            )
+        public ProductController(IProductRepository repository) : base(repository)
         {
-            this.productRepository = productRepository;
         }
 
-        [HttpGet]
-        public IEnumerable<Product> GetProductsAll()
+        protected override Func<Product, Product, bool> ExistsExpression => (data, request) => data.Name == request.Name;
+
+        protected override Func<Product, object> ObjectId => e => e.Id;
+
+        protected override Func<Product, string> Ordering => e => e.Name;
+
+        protected override void UpdateValue(Product src, Product target)
         {
-            var products = this.productRepository.FindAll();
-            return products;
+            src.Name = target.Name;
+            src.Unit = target.Unit;
         }
     }
 }
