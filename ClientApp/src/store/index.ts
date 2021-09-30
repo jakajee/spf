@@ -1,18 +1,20 @@
+import * as ProductStore from './ProductsStore';
 import * as WeatherForecasts from './WeatherForecasts';
-import * as Counter from './Counter';
+// import * as Counter from './Counter';
 
-// The top-level state object
+// // The top-level state object
 export interface ApplicationState {
-    counter: Counter.CounterState | undefined;
     weatherForecasts: WeatherForecasts.WeatherForecastsState | undefined;
+    productState: ProductStore.ProductState | undefined;
 }
 
 // Whenever an action is dispatched, Redux will update each top-level application state property using
 // the reducer with the matching name. It's important that the names match exactly, and that the reducer
 // acts on the corresponding ApplicationState property type.
 export const reducers = {
-    counter: Counter.reducer,
-    weatherForecasts: WeatherForecasts.reducer
+    // counter: Counter.reducer,
+    weatherForecasts: WeatherForecasts.reducer,
+    productState: ProductStore.ProductReducers
 };
 
 // This type can be used as a hint on action creators so that its 'dispatch' and 'getState' params are

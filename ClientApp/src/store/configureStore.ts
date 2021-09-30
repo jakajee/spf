@@ -21,9 +21,11 @@ export default function configureStore(history: History, initialState?: Applicat
         enhancers.push(windowIfDefined.__REDUX_DEVTOOLS_EXTENSION__());
     }
 
-    return createStore(
+    const store = createStore(
         rootReducer,
         initialState,
         compose(applyMiddleware(...middleware), ...enhancers)
-    );
+    )
+
+    return store;
 }

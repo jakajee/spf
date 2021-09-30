@@ -1,16 +1,18 @@
-import * as React from 'react';
-import { Container } from 'reactstrap';
 import NavMenu from './NavMenu';
 
-export default class Layout extends React.PureComponent<{}, { children?: React.ReactNode }> {
-    public render() {
-        return (
-            <React.Fragment>
-                <NavMenu />
-                <Container>
-                    {this.props.children}
-                </Container>
-            </React.Fragment>
-        );
-    }
+type LayoutProps = {
+    children?: React.ReactNode
 }
+
+function Layout({ children }: LayoutProps) {
+    return (
+        <>
+            <NavMenu />
+            <div className="container">
+                {children}
+            </div>
+        </>
+    )
+}
+
+export default Layout;
