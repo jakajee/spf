@@ -1,7 +1,7 @@
-import * as React from 'react';
 import { Route } from 'react-router';
 
 import '../node_modules/bootswatch/dist/flatly/bootstrap.min.css';
+import '../node_modules/bootstrap-icons/font/bootstrap-icons.css'
 import './custom.css';
 
 import Layout from './components/Layout';

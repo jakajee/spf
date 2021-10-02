@@ -1,18 +1,18 @@
 import { Unit } from "./Unit";
 import { AppThunkAction } from './';
-import api from "../api";
+import api, { BaseResponse } from "../api";
 import { Reducer } from "redux";
+import { LoadingAction, LoadedAction } from "./UtilStore";
 
 export interface ProductState {
-    selectedProduct?: ProductModel | null,
-    products: ProductModel[],
-    isLoading: boolean
+    selectedProduct: ProductModel | null,
+    products: ProductModel[]
 }
 
 export interface ProductModel {
-    id: string,
+    id: string | null,
     name: string,
-    unit: Unit
+    unit: Unit | null
 }
 
 interface RequestProductAction {
@@ -29,7 +29,7 @@ interface SelectProductAction {
     selectedProduct: ProductModel
 }
 
-type KnownAction = RequestProductAction | ResponseProductAction | SelectProductAction;
+type KnownAction = RequestProductAction | ResponseProductAction | SelectProductAction | LoadingAction | LoadedAction;
 
 export const ProductActions = {
     requestProducts: (): AppThunkAction<KnownAction> => async (dispatch) => {
@@ -47,14 +47,44 @@ export const ProductActions = {
                 type: 'RES_PRODUCT',
                 products: []
             })
-        }   
+        }
+    },
 
+    selectProduct: (selectedProduct: ProductModel) => {
+        const action: SelectProductAction = {
+            type: 'SELECT_PRODUCT',
+            selectedProduct
+        }
 
+        return action;
+    },
+
+    deleteProduct: (id: string | null): AppThunkAction<KnownAction> => async (dispatch, getState) => {
+        dispatch({ type: 'LOADING' })
+        const response = await api.post<BaseResponse>(`/products/delete?id=${id}`);
+        dispatch({ type: 'LOADED', message: 'ลบสินค้าสำเร็จ', serverity: 'success'})
+
+        if (response.data.isSuccess) {
+            ProductActions.requestProducts()(dispatch, getState);
+        }
+    },
+
+    createProduct: (productModel: ProductModel): AppThunkAction<KnownAction> => async (dispatch, getState) => {
+        dispatch({ type: 'LOADING' })
+        const response = await api.post<BaseResponse>(`/products/create`, {
+            model: productModel
+        });
+
+        if (response.data.isSuccess) {
+            dispatch({ type: 'LOADED', message: 'เพิ่มข้อมูลสินค้าสำเร็จ', serverity: 'success'});
+            ProductActions.requestProducts()(dispatch, getState);
+        }else {
+            dispatch({ type: 'LOADED', message: `เพิ่มข้อมูลสินค้าล้มเหลว: ${response.data.message}`, serverity: 'warning'});
+        }
     }
 }
 
 const defaultState: ProductState = {
-    isLoading: false,
     products: [],
     selectedProduct: null
 }
@@ -63,7 +93,6 @@ export const ProductReducers: Reducer<ProductState> = (state: ProductState = def
     switch (action.type) {
         case 'REQ_PRODUCT': return { ...defaultState, isLoading: true };
         case 'RES_PRODUCT': return {
-            isLoading: false,
             products: action.products,
             selectedProduct: null
         }

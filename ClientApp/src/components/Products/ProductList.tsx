@@ -1,18 +1,16 @@
 import { connect } from "react-redux"
 import { ApplicationState } from "../../store"
 import { ProductState } from "../../store/ProductsStore"
-import Loading from "../../util/Loading";
 import ProductListItem from "./ProductListItem"
 
 type ProductListProps = ProductState;
 
-function ProductList({ products, isLoading }: ProductListProps) {    
-    const productItems = products.map(item => <ProductListItem {...item} />)
+function ProductList({ products }: ProductListProps) {    
+    const productItems = products.map((item, idx) => <ProductListItem {...item} no={idx + 1} key={item.id} />)
 
     return (
         <>
-            {isLoading && <Loading type="info" />}
-            <table className="table table-striped table-bordered table-sm">
+            <table className="table table-bordered table-sm table-hover">
                 <thead>
                     <tr>
                         <th></th>

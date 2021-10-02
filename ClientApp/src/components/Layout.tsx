@@ -1,3 +1,4 @@
+import Loader from './Loader/Loader';
 import NavMenu from './NavMenu';
 
 type LayoutProps = {
@@ -11,6 +12,7 @@ function Layout({ children }: LayoutProps) {
             <div className="container">
                 {children}
             </div>
+            <Loader />
         </>
     )
 }
