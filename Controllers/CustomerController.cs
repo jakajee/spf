@@ -19,6 +19,8 @@ namespace SPF_Receipt.Controllers
 
         protected override Func<Customer, string> Ordering => e => e.FullName;
 
+        protected override string SuccessMessage => "ข้อมูลลูกค้าสำเร็จ";
+
         protected override bool IsExists(Customer request)
             => repository.Exists(e => e.FullName == request.FullName);
 

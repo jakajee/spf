@@ -24,13 +24,14 @@ namespace SPF_Receipt.Controllers
         }
         protected abstract Func<TModel, TID> ObjectId { get; }
         protected abstract Func<TModel, string> Ordering { get; }
+        protected abstract string SuccessMessage { get; }
         protected virtual string GetDuplicateMessage() => "ข้อมูลซ้ำ แก้ไขข้อมูลและลองใหม่อีกครั้ง";
+
         protected abstract void UpdateValue(TModel src, TModel target);
         protected abstract bool IsExists(TModel request);
 
         [HttpGet]
-        public IEnumerable<TModel> GetAll()
-            => repository.FindAll();
+        public IEnumerable<TModel> GetAll() => repository.FindAll().OrderBy(e => Ordering(e));
 
         [HttpPost]
         public BaseResponse Create(TModel model)
@@ -41,7 +42,7 @@ namespace SPF_Receipt.Controllers
             }
 
             repository.Insert(model);
-            return new BaseResponse();
+            return new BaseResponse(message: $"เพิ่ม{SuccessMessage}");
         }
 
         [HttpPost]
@@ -51,14 +52,14 @@ namespace SPF_Receipt.Controllers
 
             UpdateValue(data, model);
             repository.Update(model);
-            return new BaseResponse();
+            return new BaseResponse(message: $"แก้ไข{SuccessMessage}");
         }
 
         [HttpPost]
         public BaseResponse Delete(TID id)
         {
             repository.Delete(id);
-            return new BaseResponse();
+            return new BaseResponse(message: $"ลบ{SuccessMessage}");
         }
     }
 }

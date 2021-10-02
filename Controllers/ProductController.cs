@@ -20,6 +20,8 @@ namespace SPF_Receipt.Controllers
 
         protected override Func<Product, string> Ordering => e => e.Name;
 
+        protected override string SuccessMessage => "ข้อมูลสินค้าสำเร็จ";
+
         protected override bool IsExists(Product request) => repository.Exists(e => e.Name == request.Name);
 
         protected override void UpdateValue(Product src, Product target)

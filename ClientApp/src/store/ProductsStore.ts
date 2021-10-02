@@ -62,7 +62,7 @@ export const ProductActions = {
     deleteProduct: (id: string | null): AppThunkAction<KnownAction> => async (dispatch, getState) => {
         dispatch({ type: 'LOADING' })
         const response = await api.post<BaseResponse>(`/products/delete?id=${id}`);
-        dispatch({ type: 'LOADED', message: 'ลบสินค้าสำเร็จ', serverity: 'success'})
+        dispatch({ type: 'LOADED', message: response.data.message, serverity: 'success'})
 
         if (response.data.isSuccess) {
             ProductActions.requestProducts()(dispatch, getState);
@@ -71,12 +71,10 @@ export const ProductActions = {
 
     createProduct: (productModel: ProductModel): AppThunkAction<KnownAction> => async (dispatch, getState) => {
         dispatch({ type: 'LOADING' })
-        const response = await api.post<BaseResponse>(`/products/create`, {
-            model: productModel
-        });
+        const response = await api.post<BaseResponse>(`/products/create`, productModel);
 
         if (response.data.isSuccess) {
-            dispatch({ type: 'LOADED', message: 'เพิ่มข้อมูลสินค้าสำเร็จ', serverity: 'success'});
+            dispatch({ type: 'LOADED', message: response.data.message, serverity: 'success'});
             ProductActions.requestProducts()(dispatch, getState);
         }else {
             dispatch({ type: 'LOADED', message: `เพิ่มข้อมูลสินค้าล้มเหลว: ${response.data.message}`, serverity: 'warning'});
