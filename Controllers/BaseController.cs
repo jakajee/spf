@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 namespace SPF_Receipt.Controllers
 {
     [ApiController]
-    public abstract class BaseController<IRepository, TModel> : ControllerBase
+    public abstract class BaseController<IRepository, TModel, TID> : ControllerBase
         where TModel : class
         where IRepository : IBaseDataAccess<TModel>
     {
-        private readonly IRepository repository;
+        protected readonly IRepository repository;
 
         public BaseController(
                 IRepository repository
@@ -22,13 +22,11 @@ namespace SPF_Receipt.Controllers
         {
             this.repository = repository;
         }
-
-        protected abstract Func<TModel, TModel, bool> ExistsExpression { get; }
-        protected abstract Func<TModel, object> ObjectId { get; }
+        protected abstract Func<TModel, TID> ObjectId { get; }
         protected abstract Func<TModel, string> Ordering { get; }
-
         protected virtual string GetDuplicateMessage() => "ข้อมูลซ้ำ แก้ไขข้อมูลและลองใหม่อีกครั้ง";
         protected abstract void UpdateValue(TModel src, TModel target);
+        protected abstract bool IsExists(TModel request);
 
         [HttpGet]
         public IEnumerable<TModel> GetAll()
@@ -37,7 +35,7 @@ namespace SPF_Receipt.Controllers
         [HttpPost]
         public BaseResponse Create(TModel model)
         {
-            if (repository.Exists(e => ExistsExpression(e, model)))
+            if (IsExists(model))
             {
                 return new BaseResponse(GetDuplicateMessage());
             }
@@ -57,7 +55,7 @@ namespace SPF_Receipt.Controllers
         }
 
         [HttpPost]
-        public BaseResponse Delete(object id)
+        public BaseResponse Delete(TID id)
         {
             repository.Delete(id);
             return new BaseResponse();

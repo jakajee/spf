@@ -10,17 +10,17 @@ using System.Threading.Tasks;
 namespace SPF_Receipt.Controllers
 {
     [Route("products/[action]")]
-    public class ProductController : BaseController<IProductRepository, Product>
+    public class ProductController : BaseController<IProductRepository, Product, Guid>
     {
         public ProductController(IProductRepository repository) : base(repository)
         {
         }
 
-        protected override Func<Product, Product, bool> ExistsExpression => (data, request) => data.Name == request.Name;
-
-        protected override Func<Product, object> ObjectId => e => e.Id;
+        protected override Func<Product, Guid> ObjectId => e => e.Id;
 
         protected override Func<Product, string> Ordering => e => e.Name;
+
+        protected override bool IsExists(Product request) => repository.Exists(e => e.Name == request.Name);
 
         protected override void UpdateValue(Product src, Product target)
         {

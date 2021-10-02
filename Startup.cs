@@ -6,6 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SPF_Receipt.App_Config;
+using System;
+using System.Text.Json.Serialization;
 
 namespace SPF_Receipt
 {
@@ -21,7 +23,7 @@ namespace SPF_Receipt
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddControllersWithViews();           
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -46,7 +48,7 @@ namespace SPF_Receipt
             }
 
             app.UseStaticFiles();
-            app.UseSpaStaticFiles();
+            app.UseSpaStaticFiles();            
 
             app.UseRouting();
 
