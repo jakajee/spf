@@ -1,3 +1,5 @@
+import { Reducer } from "redux";
+import CustomerAction, { CustomerCombinedAction } from "./factory/CustomerAction";
 
 export interface CustomerModel {
     id: string | null,
@@ -8,21 +10,34 @@ export interface CustomerModel {
 }
 
 export interface CustomerState {
+    customers: CustomerModel[]
     selectedCustomer: CustomerModel | null,
-    customers: CustomerModel[]
 }
 
-interface RequestCustomerAction {
-    type: 'REQ_CUSTOMER'
+export const CustomerActions = {
+    getAllCustomers: () => CustomerAction.requestAll(),
+    selectCustomer: (product: CustomerModel) => CustomerAction.selectedModel(product),
+    deleteCustomer: (id: string | null) => CustomerAction.deleteModel(id),
+    createCustomer: (product: CustomerModel) => CustomerAction.createModel(product),
+    updateCustomer: (product: CustomerModel) => CustomerAction.updateModel(product)
 }
 
-interface ResponseCustomerAction {
-    type: 'RES_CUSTOMER',
-    customers: CustomerModel[]
+const defaultState: CustomerState = {
+    customers: [],
+    selectedCustomer: null
 }
 
-interface SelectCustomerAction {
-    type: 'SELECT_CUSTOMER',
-    selectedCustomer: CustomerModel
+export const CustomerReducers: Reducer<CustomerState> = (state: CustomerState = defaultState, action: CustomerCombinedAction) => {
+    switch (action.type) {
+        case 'REQ_ALL_CUSTOMERS': return { ...defaultState, isLoading: true };
+        case 'RES_ALL_CUSTOMERS': return {
+            customers: action.customers,
+            selectedCustomer: null
+        }
+        case 'SELECT_CUSTOMER': return {
+            ...state,
+            selectedCustomer: action.selectedCustomer
+        }
+        default: return state;
+    }
 }
-
