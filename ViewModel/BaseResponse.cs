@@ -10,7 +10,7 @@ namespace SPF_Receipt.ViewModel
         public bool IsSuccess { get; set; }
         public string Message { get; set; }
 
-        public BaseResponse(bool isSuccess = true, string message = "Success")
+        public BaseResponse(bool isSuccess = true, string message = "ทำงานสำเร็จ")
         {
             IsSuccess = isSuccess;
             Message = message;
