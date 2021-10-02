@@ -12,7 +12,7 @@ namespace SPF_Receipt.App_Config
     {
         public static void Init()
         {
-            using (var db = new LiteDatabase("SPF.db"))
+            using (var db = new LiteDatabase(AppSettings.ConnectionString))
             {
                 db.InitUnit();
                 db.InitCustomer();
@@ -46,7 +46,7 @@ namespace SPF_Receipt.App_Config
             var customers = db.GetCollection<Customer>();
             var initialCustomer = "ห้างหุ้นส่วนจำกัด วงศ์วิวัฒน์พืชผล (สำนักงานใหญ่)";
 
-            if (!customers.Exists(e => e.FullName == initialCustomer))
+            if (!customers.FindAll().Any())
             {
                 customers.Insert(new Customer
                 {
@@ -62,7 +62,7 @@ namespace SPF_Receipt.App_Config
         {
             var payments = db.GetCollection<Payment>();
             var initialPay = "เงินสด";
-            
+
             if (!payments.Exists(e => e.Id == 1))
             {
                 payments.Insert(new Payment
@@ -77,33 +77,25 @@ namespace SPF_Receipt.App_Config
         {
             var products = db.GetCollection<Product>();
             var unit = db.GetCollection<Unit>();
-            
-            if (!products.Exists(e => e.Name == "มะกะโรนี - ข้องอ"))
+
+            if (!products.FindAll().Any())
             {
                 products.Insert(new Product
                 {
                     Name = "มะกะโรนี - ข้องอ",
                     Unit = unit.FindById(new BsonValue(EnumUnit.Box.Integer())),
                 });
-            }
-
-            if (!products.Exists(e => e.Name == "หมี่เตี๊ยว"))
-            {
                 products.Insert(new Product
                 {
                     Name = "หมี่เตี๊ยว",
                     Unit = unit.FindById(new BsonValue(EnumUnit.BigPack.Integer()))
                 });
-            }
-
-            if (!products.Exists(e => e.Name == "หมี่ซั่วจีนแดง (40 ซอง)"))
-            {
                 products.Insert(new Product
                 {
                     Name = "หมี่ซั่วจีนแดง (40 ซอง)",
                     Unit = unit.FindById(new BsonValue(EnumUnit.Box.Integer())),
                 });
-            }    
+            }
         }
     }
 }

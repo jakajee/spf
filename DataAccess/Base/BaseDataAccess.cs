@@ -33,7 +33,7 @@ namespace SPF_Receipt.DataAccess.Base
 
         private TResponse InitConnection<TResponse>(Func<ILiteCollection<TObject>, TResponse> action)
         {
-            using (var db = new LiteDatabase("SPF.db"))
+            using (var db = new LiteDatabase(AppSettings.ConnectionString))
             {
                 return action(db.GetCollection<TObject>());
             }
