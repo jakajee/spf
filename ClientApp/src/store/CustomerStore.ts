@@ -3,10 +3,10 @@ import CustomerAction, { CustomerCombinedAction } from "./factory/CustomerAction
 
 export interface CustomerModel {
     id: string | null,
-    fullName: string | null,
-    address1: string | null,
-    address2: string | null,
-    taxNumber: string | null
+    fullName: string ,
+    address1: string,
+    address2: string,
+    taxNumber: string
 }
 
 export interface CustomerState {
@@ -16,10 +16,10 @@ export interface CustomerState {
 
 export const CustomerActions = {
     getAllCustomers: () => CustomerAction.requestAll(),
-    selectCustomer: (product: CustomerModel) => CustomerAction.selectedModel(product),
+    selectCustomer: (customer: CustomerModel) => CustomerAction.selectedModel(customer),
     deleteCustomer: (id: string | null) => CustomerAction.deleteModel(id),
-    createCustomer: (product: CustomerModel) => CustomerAction.createModel(product),
-    updateCustomer: (product: CustomerModel) => CustomerAction.updateModel(product)
+    createCustomer: (customer: CustomerModel) => CustomerAction.createModel(customer),
+    updateCustomer: (customer: CustomerModel) => CustomerAction.updateModel(customer)
 }
 
 const defaultState: CustomerState = {
