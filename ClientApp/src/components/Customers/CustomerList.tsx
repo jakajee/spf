@@ -11,7 +11,7 @@ export default () => {
                 <div>{item.address1}</div>
                 <div>{item.address2}</div>
             </td>
-            <td>{item.address3}</td>
+            <td>{item.taxNumber}</td>
         </tr>
     })
 

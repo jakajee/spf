@@ -53,7 +53,7 @@ namespace SPF_Receipt.App_Config
                     FullName = initialCustomer,
                     Address1 = "59/1 ถนนทรงวาด แขวงจักรวรรดิ์",
                     Address2 = "เขตสัมพันธวงศ์ กรุงเทพมหานคร 10100",
-                    Address3 = "เลขประจำตัวผู้เสียภาษีอากร 010353017753"
+                    TaxNumber = "010353017753"
                 });
             }
         }

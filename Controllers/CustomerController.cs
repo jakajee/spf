@@ -29,7 +29,7 @@ namespace SPF_Receipt.Controllers
             src.FullName = target.FullName;
             src.Address1 = target.Address1;
             src.Address2 = target.Address2;
-            src.Address3 = target.Address3;
+            src.TaxNumber = target.TaxNumber;
         }
     }
 }

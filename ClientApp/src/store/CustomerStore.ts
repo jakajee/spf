@@ -6,7 +6,7 @@ export interface CustomerModel {
     fullName: string | null,
     address1: string | null,
     address2: string | null,
-    address3: string | null
+    taxNumber: string | null
 }
 
 export interface CustomerState {
