@@ -11,7 +11,7 @@ import CustomerMain from './components/Customers/CustomerMain';
 
 export default () => (
     <Layout>
-        <Route path="/receipt" component={ReceiptMain} />
+        <Route path="/receipts" component={ReceiptMain} />
         <Route path="/customers" component={CustomerMain} />
         <Route path="/products" component={ProductMain} />
         <Route exact path="/" component={ReceiptMain} />

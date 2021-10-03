@@ -1,9 +1,8 @@
 import { History } from 'history';
 import * as React from 'react';
-import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
-import { ApplicationState } from '../store';
 import './NavMenu.css';
+import logo from '../asset/logo.png';
 
 class NavMenu extends React.PureComponent<{ history?: History }, { isOpen: boolean }> {
     public state = {
@@ -17,7 +16,7 @@ class NavMenu extends React.PureComponent<{ history?: History }, { isOpen: boole
                 <nav className="navbar navbar-expand-lg navbar-dark bg-primary border-bottom box-shadow mb-3">
                     <div className="container">
                         <Link to="/" className="navbar-brand">
-                            Siam President Foods
+                            <img src={logo} className="d-inline-block" height={36} />
                         </Link>
                         <ul className="navbar-nav flex-grow">
                             {this.renderLink()}
