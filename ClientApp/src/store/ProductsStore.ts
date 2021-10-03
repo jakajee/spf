@@ -10,7 +10,8 @@ export interface ProductState {
 export interface ProductModel {
     id: string | null,
     name: string,
-    unit: Unit | null
+    unit: Unit | null,
+    price: number
 }
 
 export const ProductActions = {

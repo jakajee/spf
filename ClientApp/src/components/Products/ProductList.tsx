@@ -15,6 +15,7 @@ function ProductList({ products }: ProductListProps) {
                     <tr>
                         <th></th>
                         <th>ชื่อสินค้า</th>
+                        <th>ราคา (บาท)</th>
                         <th>หน่วย</th>
                         <th></th>
                     </tr>

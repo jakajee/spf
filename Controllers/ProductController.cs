@@ -28,6 +28,7 @@ namespace SPF_Receipt.Controllers
         {
             src.Name = target.Name;
             src.Unit = target.Unit;
+            src.Price = target.Price;
         }
     }
 }

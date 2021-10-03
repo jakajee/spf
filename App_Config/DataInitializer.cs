@@ -84,16 +84,19 @@ namespace SPF_Receipt.App_Config
                 {
                     Name = "มะกะโรนี - ข้องอ",
                     Unit = unit.FindById(new BsonValue(EnumUnit.Box.Integer())),
+                    Price = 350
                 });
                 products.Insert(new Product
                 {
                     Name = "หมี่เตี๊ยว",
-                    Unit = unit.FindById(new BsonValue(EnumUnit.BigPack.Integer()))
+                    Unit = unit.FindById(new BsonValue(EnumUnit.BigPack.Integer())),
+                    Price = 200
                 });
                 products.Insert(new Product
                 {
                     Name = "หมี่ซั่วจีนแดง (40 ซอง)",
                     Unit = unit.FindById(new BsonValue(EnumUnit.Box.Integer())),
+                    Price = 400
                 });
             }
         }

@@ -10,7 +10,8 @@ function getInitialForm(): ProductModel {
     return {
         id: null,
         name: "",
-        unit: null
+        unit: null,
+        price: 0
     };
 }
 
@@ -45,11 +46,11 @@ function ProductForm() {
         )
     }
 
-    const onNameChange = (e: React.FocusEvent<HTMLInputElement>) => {
+    const onInputChange = (e: React.FocusEvent<HTMLInputElement>) => {
         dispatch(
             ProductActions.selectProduct({
                 ...productModel,
-                name: e.target.value
+                [e.target.name]: e.target.value
             })
         )
     }
@@ -81,7 +82,17 @@ function ProductForm() {
                                 name="name"
                                 className="form-control"
                                 value={productModel.name}
-                                onChange={onNameChange}
+                                onChange={onInputChange}
+                            />
+                        </div>
+                        <div className="col">
+                            <label className="form-label required">ราคา</label>
+                            <input
+                                type="number"
+                                name="price"
+                                className="form-control"
+                                value={productModel.price}
+                                onChange={onInputChange}
                             />
                         </div>
                         <div className="col">

@@ -32,6 +32,7 @@ export default (props: ProductListItemProps) => {
             <tr style={{ cursor: "pointer" }} onClick={onSelectProduct} className={selected}>
                 <td className="text-center">{props.no}</td>
                 <td>{props.name}</td>
+                <td>{new Intl.NumberFormat("en-US").format(props.price)}</td>
                 <td>{props.unit?.name}</td>
                 <td>
                     <button type="button" className="btn btn-sm btn-secondary" onClick={onRemoveProduct}>
