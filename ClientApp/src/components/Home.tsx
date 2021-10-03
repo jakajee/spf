@@ -1,0 +1,51 @@
+import { Link } from "react-router-dom";
+import Icon from "../util/Icon"
+
+export default () => {
+    const cardInfo: {
+        headerIcon: string,
+        headerTitle: string,
+        bodyDetail: string,
+        footerLink: string
+    }[] = [{
+        headerIcon: "file-earmark-spreadsheet",
+        headerTitle: "ใบกำกับภาษี",
+        bodyDetail: `เลือกลูกค้าที่ต้องการพิมพ์ใบกำกับภาษี เลือกสินค้า ใส่จำนวน`,
+        footerLink: "/receipts"
+    }, {
+        headerIcon: "people",
+        headerTitle: "ข้อมูลลูกค้า",
+        bodyDetail: "จัดการ (เพิ่ม/แก้ไข/ลบ/ค้นหา) ข้อมูลลูกค้าที่ต้องการ",
+        footerLink: "/customers"
+    }, {
+        headerIcon: "box",
+        headerTitle: "ข้อมูลสินค้า",
+        bodyDetail: "จัดการ (เพิ่ม/แก้ไข/ลบ) ข้อมูลสินค้าที่ต้องการ",
+        footerLink: "/products"
+    }]
+    return <>
+        <div>
+            {cardInfo.map((item, idx) => {
+                return (
+                    <div className="row mb-2" key={idx}>
+                        <div className="col">
+                            <div className="card">
+                                <div className="card-header bg-secondary">
+                                    <h4 className="m-0"><Icon name={item.headerIcon} />{item.headerTitle}</h4>
+                                </div>
+                                <div className="card-body">
+                                    <p className="card-text">{item.bodyDetail}</p>
+                                </div>
+                                <div className="card-footer">
+                                    <Link to={item.footerLink}>
+                                        คลิกที่นี่
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                );
+            })}
+        </div>
+    </>
+}

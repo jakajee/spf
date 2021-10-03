@@ -1,7 +1,13 @@
+import ReceiptBody from "./ReceiptBody"
+import ReceiptFooter from "./ReceiptFooter"
+import ReceiptHeader from "./ReceiptHeader"
+
 export default () => {
     return (
         <>
-            Receipts Main
+            <ReceiptHeader />
+            <ReceiptBody />
+            <ReceiptFooter />
         </>
     )
 }
