@@ -9,7 +9,7 @@ function Layout({ children }: LayoutProps) {
     return (
         <>
             <NavMenu />
-            <div className="container">
+            <div className="container" style={{ marginTop: 60 }}>
                 {children}
             </div>
             <Loader />

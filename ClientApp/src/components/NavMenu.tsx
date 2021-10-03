@@ -13,10 +13,10 @@ class NavMenu extends React.PureComponent<{ history?: History }, { isOpen: boole
 
         return (
             <header>
-                <nav className="navbar navbar-expand-lg navbar-dark bg-primary border-bottom box-shadow mb-3">
+                <nav className="navbar navbar-expand-lg fixed-top navbar-dark bg-primary border-bottom box-shadow p-1">
                     <div className="container">
                         <Link to="/" className="navbar-brand">
-                            <img src={logo} className="d-inline-block" height={36} />
+                            <img src={logo} className="d-inline-block" height={30} />
                         </Link>
                         <ul className="navbar-nav flex-grow">
                             {this.renderLink()}
