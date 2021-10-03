@@ -31,7 +31,6 @@ export default () => {
 
     const onChangeFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFilter(e.target.value);
-        applyFilter(e.target.value);
     }
 
     const applyFilter = (keyword: string) => {
