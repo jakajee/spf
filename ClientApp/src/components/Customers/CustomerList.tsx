@@ -25,7 +25,6 @@ export default () => {
     }, [customers])
 
     const onClickResetFilter = () => {
-        setFilteredCustomers(customers);
         setFilter("");
     }
 
@@ -60,7 +59,7 @@ export default () => {
                 </button>
             </div>
             <table className="table table-bordered table-sm table-hover">
-                <thead>
+                <thead className="table-primary">
                     <tr>
                         <th></th>
                         <th>ชื่อลูกค้า</th>

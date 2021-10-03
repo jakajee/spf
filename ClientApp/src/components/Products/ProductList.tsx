@@ -11,7 +11,7 @@ function ProductList({ products }: ProductListProps) {
     return (
         <>
             <table className="table table-bordered table-sm table-hover">
-                <thead>
+                <thead className="table-primary">
                     <tr>
                         <th></th>
                         <th>ชื่อสินค้า</th>

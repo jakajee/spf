@@ -25,7 +25,7 @@ export default (props: ProductListItemProps) => {
         }
     }
 
-    const selected = props.id === productId ? "table-primary" : "";
+    const selected = props.id === productId ? "table-dark" : "";
 
     return (
         <>
@@ -34,8 +34,8 @@ export default (props: ProductListItemProps) => {
                 <td>{props.name}</td>
                 <td>{new Intl.NumberFormat("en-US").format(props.price)}</td>
                 <td>{props.unit?.name}</td>
-                <td>
-                    <button type="button" className="btn btn-sm btn-secondary" onClick={onRemoveProduct}>
+                <td className="text-center">
+                    <button type="button" className="btn btn-sm btn-danger" onClick={onRemoveProduct}>
                         <Icon name="x-circle" />
                         ลบ
                     </button>

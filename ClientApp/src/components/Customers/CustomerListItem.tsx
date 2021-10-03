@@ -8,9 +8,7 @@ export default (props: CustomerModel & { idx: number }) => {
     const id = useSelector((appState: ApplicationState) => appState.customerState.selectedCustomer?.id)
 
     const onSelectCustomer = () => {
-        dispatch(
-            CustomerActions.selectCustomer(props as CustomerModel)
-        );
+        dispatch(CustomerActions.selectCustomer(props as CustomerModel));
     }
 
     const onRemoveCustomer = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -20,7 +18,7 @@ export default (props: CustomerModel & { idx: number }) => {
         }
     }
 
-    const selected = props.id === id ? "table-primary" : "";
+    const selected = props.id === id ? "table-dark" : "";
 
     return <tr style={{ cursor: "pointer" }} onClick={onSelectCustomer} className={selected}>
         <td>{props.idx + 1}</td>
@@ -30,8 +28,8 @@ export default (props: CustomerModel & { idx: number }) => {
             <div>{props.address2}</div>
         </td>
         <td>{props.taxNumber}</td>
-        <td>
-            <button type="button" className="btn btn-sm btn-secondary" onClick={onRemoveCustomer}>
+        <td className="text-center">
+            <button type="button" className="btn btn-sm btn-danger" onClick={onRemoveCustomer}>
                 <Icon name="x-circle" />
                 ลบ
             </button>
