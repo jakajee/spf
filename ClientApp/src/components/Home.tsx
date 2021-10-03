@@ -27,7 +27,7 @@ export default () => {
         <div>
             {cardInfo.map((item, idx) => {
                 return (
-                    <div className="row mb-2" key={idx}>
+                    <div className="row mb-3" key={idx}>
                         <div className="col">
                             <div className="card">
                                 <div className="card-header bg-secondary">
