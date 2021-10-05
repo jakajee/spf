@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="10/04/2021 21:35:04" ReportInfo.Modified="10/05/2021 21:36:39" ReportInfo.CreatorVersion="2021.4.0.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="10/04/2021 21:35:04" ReportInfo.Modified="10/05/2021 22:57:36" ReportInfo.CreatorVersion="2021.4.0.0">
   <Dictionary>
     <BusinessObjectDataSource Name="ProductList" ReferenceName="ProductList" DataType="System.Int32" Enabled="true">
       <Column Name="ProductName" DataType="System.String"/>
@@ -8,7 +8,9 @@
       <Column Name="Price" DataType="System.String"/>
       <Column Name="TotalPrice" DataType="System.String"/>
     </BusinessObjectDataSource>
-    <Parameter Name="HeaderTitle" DataType="System.String"/>
+    <Parameter Name="HeaderTitle1" DataType="System.String"/>    
+    <Parameter Name="HeaderTitle2" DataType="System.String"/>
+    <Parameter Name="HeaderTitle3" DataType="System.String"/>
     <Parameter Name="CustomerName" DataType="System.String"/>
     <Parameter Name="Address1" DataType="System.String"/>
     <Parameter Name="Address2" DataType="System.String"/>
@@ -22,19 +24,20 @@
     <Parameter Name="GrandTotal" DataType="System.String"/>
     <Parameter Name="GrandTotalInThai" DataType="System.String"/>
   </Dictionary>
-  <ReportPage Name="Page1" Watermark.Font="Arial, 60pt">
+  <ReportPage Name="Page1" RawPaperSize="9" TopMargin="5" BottomMargin="5" Watermark.Font="Browallia New, 60pt">
     <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="122.85">
       <PictureObject Name="Picture1" Left="18.9" Width="66.15" Height="47.25" ImageFormat="Png" Image="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"/>
-      <TextObject Name="Text1" Left="85.05" Width="349.65" Height="37.8" Text="บริษัท สยามเพรสซิเดนท์ฟู้ดส์ จำกัด (สำนักงานใหญ่)&#13;&#10;SIAM PRESIDENT FOODS CO.,LTD." Font="Arial, 12pt, style=Bold"/>
-      <TextObject Name="Text2" Left="85.05" Top="47.25" Width="283.5" Height="47.25" Text="1,3,5 ซอยเอกชัย 94 แยก 2 ถนนเอกชัย&#13;&#10;แขวงบางบอนเหนือ เขตบางบอน กรุงเทพฯ 10150&#13;&#10;โทร (02) 416-0750 โทรสาร : (02) 895-1740" Font="Arial, 10pt"/>
-      <TextObject Name="Text3" Left="510.3" Width="189" Height="94.5" Text="[HeaderTitle]" HorzAlign="Center" VertAlign="Center" Font="Arial, 11pt, style=Bold"/>
-      <TextObject Name="Text4" Left="18.9" Top="103.95" Width="349.65" Height="18.9" Text="เลขประจำตัวผู้เสียภาษีอากร 0105537029072" VertAlign="Center" Font="Arial, 10pt"/>
+      <TextObject Name="Text1" Left="85.05" Width="349.65" Height="37.8" Text="บริษัท สยามเพรสซิเดนท์ฟู้ดส์ จำกัด (สำนักงานใหญ่)&#13;&#10;SIAM PRESIDENT FOODS CO.,LTD." Font="Browallia New, 12pt, style=Bold"/>
+      <TextObject Name="Text2" Left="85.05" Top="47.25" Width="283.5" Height="47.25" Text="1,3,5 ซอยเอกชัย 94 แยก 2 ถนนเอกชัย&#13;&#10;แขวงบางบอนเหนือ เขตบางบอน กรุงเทพฯ 10150&#13;&#10;โทร (02) 416-0750 โทรสาร : (02) 895-1740" Font="Browallia New, 10pt"/>
+      <TextObject Name="Text3" Left="510.3" Width="189" Height="94.5" Text="[HeaderTitle1]&#13;&#10;[HeaderTitle2]" HorzAlign="Center" VertAlign="Center" Font="Browallia New, 12pt, style=Bold"/>
+      <TextObject Name="Text4" Left="18.9" Top="103.95" Width="349.65" Height="18.9" Text="เลขประจำตัวผู้เสียภาษีอากร 0105537029072" VertAlign="Center" Font="Browallia New, 10pt"/>
+      <TextObject Name="Text19" Left="510.3" Top="103.95" Width="189" Height="18.9" Text="[HeaderTitle3]" HorzAlign="Center" VertAlign="Center" Font="Browallia New, 12pt, style=Bold"/>
     </ReportTitleBand>
-    <PageHeaderBand Name="PageHeader1" Top="125.52" Width="718.2" Height="217.35">
-      <TextObject Name="Text5" Left="28.35" Top="9.45" Width="56.7" Height="18.9" Text="ชื่อลูกค้า" VertAlign="Center" Font="Arial, 10pt"/>
-      <TextObject Name="Text6" Left="103.95" Top="9.45" Width="349.65" Height="75.6" Text="[CustomerName]&#13;&#10;[Address1]&#13;&#10;[Address2]&#13;&#10;เลขประจำตัวผู้เสียภาษีอากร [TaxNumber]" VertAlign="Center" Font="Arial, 10pt"/>
-      <TextObject Name="Text10" Left="519.75" Top="9.45" Width="170.1" Height="18.9" Text="เลขที่  [ReceiptNumber]" VertAlign="Center" Font="Arial, 10pt"/>
-      <TextObject Name="Text11" Left="519.75" Top="66.15" Width="170.1" Height="18.9" Text="วันที่ [ReceiptDate]" VertAlign="Center" Font="Arial, 10pt"/>
+    <PageHeaderBand Name="PageHeader1" Top="125.14" Width="718.2" Height="189">
+      <TextObject Name="Text5" Left="28.35" Top="9.45" Width="56.7" Height="18.9" Text="ชื่อลูกค้า" VertAlign="Center" Font="Browallia New, 10pt"/>
+      <TextObject Name="Text6" Left="103.95" Top="9.45" Width="349.65" Height="75.6" Text="[CustomerName]&#13;&#10;[Address1]&#13;&#10;[Address2]&#13;&#10;เลขประจำตัวผู้เสียภาษีอากร [TaxNumber]" VertAlign="Center" Font="Browallia New, 10pt"/>
+      <TextObject Name="Text10" Left="519.75" Top="9.45" Width="170.1" Height="18.9" Text="เลขที่  [ReceiptNumber]" VertAlign="Center" Font="Browallia New, 10pt"/>
+      <TextObject Name="Text11" Left="519.75" Top="66.15" Width="170.1" Height="18.9" Text="วันที่ [ReceiptDate]" VertAlign="Center" Font="Browallia New, 10pt"/>
       <TableObject Name="Table1" Left="18.9" Top="103.95" Width="680.4" Height="79.38">
         <TableColumn Name="Column1" Width="136.08"/>
         <TableColumn Name="Column2" Width="136.08"/>
@@ -42,95 +45,81 @@
         <TableColumn Name="Column4" Width="136.08"/>
         <TableColumn Name="Column5" Width="136.08"/>
         <TableRow Name="Row1" Height="24.57">
-          <TableCell Name="Cell1" Border.Lines="Left, Top, Bottom" Border.Width="0.5" Text="รหัสลูกค้า" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
-          <TableCell Name="Cell2" Border.Lines="All" Border.Width="0.5" Text="ใบสั่งซื้อเลขที่" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
-          <TableCell Name="Cell3" Border.Lines="All" Border.Width="0.5" Text="พนักงานขาย" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
-          <TableCell Name="Cell4" Border.Lines="All" Border.Width="0.5" Text="กำหนดชำระเงิน" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
-          <TableCell Name="Cell5" Border.Lines="All" Border.Width="0.5" Text="วันครบกำหนด" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+          <TableCell Name="Cell1" Border.Lines="Left, Top, Bottom" Border.Width="0.5" Text="รหัสลูกค้า" HorzAlign="Center" VertAlign="Center" Font="Browallia New, 10pt"/>
+          <TableCell Name="Cell2" Border.Lines="All" Border.Width="0.5" Text="ใบสั่งซื้อเลขที่" HorzAlign="Center" VertAlign="Center" Font="Browallia New, 10pt"/>
+          <TableCell Name="Cell3" Border.Lines="All" Border.Width="0.5" Text="พนักงานขาย" HorzAlign="Center" VertAlign="Center" Font="Browallia New, 10pt"/>
+          <TableCell Name="Cell4" Border.Lines="All" Border.Width="0.5" Text="กำหนดชำระเงิน" HorzAlign="Center" VertAlign="Center" Font="Browallia New, 10pt"/>
+          <TableCell Name="Cell5" Border.Lines="All" Border.Width="0.5" Text="วันครบกำหนด" HorzAlign="Center" VertAlign="Center" Font="Browallia New, 10pt"/>
         </TableRow>
         <TableRow Name="Row2" Height="15.12">
-          <TableCell Name="Cell6" Border.Lines="Left" Border.Width="0.5" Font="Arial, 10pt"/>
-          <TableCell Name="Cell7" Border.Lines="Left, Right" Border.Width="0.5" Font="Arial, 10pt"/>
-          <TableCell Name="Cell8" Font="Arial, 10pt"/>
-          <TableCell Name="Cell9" Border.Lines="Left, Right" Border.Width="0.5" Font="Arial, 10pt"/>
-          <TableCell Name="Cell10" Border.Lines="Right" Border.Width="0.5" Font="Arial, 10pt"/>
+          <TableCell Name="Cell6" Border.Lines="Left" Border.Width="0.5" Font="Browallia New, 10pt"/>
+          <TableCell Name="Cell7" Border.Lines="Left, Right" Border.Width="0.5" Font="Browallia New, 10pt"/>
+          <TableCell Name="Cell8" Font="Browallia New, 10pt"/>
+          <TableCell Name="Cell9" Border.Lines="Left, Right" Border.Width="0.5" Font="Browallia New, 10pt"/>
+          <TableCell Name="Cell10" Border.Lines="Right" Border.Width="0.5" Font="Browallia New, 10pt"/>
         </TableRow>
         <TableRow Name="Row3" Height="24.57">
-          <TableCell Name="Cell11" Border.Lines="Left" Border.Width="0.5" Font="Arial, 10pt"/>
-          <TableCell Name="Cell12" Border.Lines="Left, Right" Border.Width="0.5" Font="Arial, 10pt"/>
-          <TableCell Name="Cell13" Font="Arial, 10pt"/>
-          <TableCell Name="Cell14" Border.Lines="Left, Right" Border.Width="0.5" Text="[Payment]" HorzAlign="Center" Font="Arial, 10pt"/>
-          <TableCell Name="Cell15" Border.Lines="Right" Border.Width="0.5" Text="[DueDate]" HorzAlign="Center" Font="Arial, 10pt"/>
+          <TableCell Name="Cell11" Border.Lines="Left" Border.Width="0.5" Font="Browallia New, 10pt"/>
+          <TableCell Name="Cell12" Border.Lines="Left, Right" Border.Width="0.5" Font="Browallia New, 10pt"/>
+          <TableCell Name="Cell13" Font="Browallia New, 10pt"/>
+          <TableCell Name="Cell14" Border.Lines="Left, Right" Border.Width="0.5" Text="[Payment]" HorzAlign="Center" Font="Browallia New, 10pt"/>
+          <TableCell Name="Cell15" Border.Lines="Right" Border.Width="0.5" Text="[DueDate]" HorzAlign="Center" Font="Browallia New, 10pt"/>
         </TableRow>
         <TableRow Name="Row4" Height="15.12">
-          <TableCell Name="Cell16" Border.Lines="Left, Bottom" Border.Width="0.5" Font="Arial, 10pt"/>
-          <TableCell Name="Cell17" Border.Lines="Left, Right, Bottom" Border.Width="0.5" Font="Arial, 10pt"/>
-          <TableCell Name="Cell18" Border.Lines="Bottom" Border.Width="0.5" Font="Arial, 10pt"/>
-          <TableCell Name="Cell19" Border.Lines="Left, Right, Bottom" Border.Width="0.5" Font="Arial, 10pt"/>
-          <TableCell Name="Cell20" Border.Lines="Right, Bottom" Border.Width="0.5" Font="Arial, 10pt"/>
+          <TableCell Name="Cell16" Border.Lines="Left, Bottom" Border.Width="0.5" Font="Browallia New, 10pt"/>
+          <TableCell Name="Cell17" Border.Lines="Left, Right, Bottom" Border.Width="0.5" Font="Browallia New, 10pt"/>
+          <TableCell Name="Cell18" Border.Lines="Bottom" Border.Width="0.5" Font="Browallia New, 10pt"/>
+          <TableCell Name="Cell19" Border.Lines="Left, Right, Bottom" Border.Width="0.5" Font="Browallia New, 10pt"/>
+          <TableCell Name="Cell20" Border.Lines="Right, Bottom" Border.Width="0.5" Font="Browallia New, 10pt"/>
         </TableRow>
       </TableObject>
-      <ShapeObject Name="Shape1" Left="18.9" Width="444.15" Height="94.5"/>
-      <ShapeObject Name="Shape2" Left="510.3" Width="189" Height="37.8"/>
-      <ShapeObject Name="Shape3" Left="510.3" Top="56.7" Width="189" Height="37.8"/>
-      <TableObject Name="Table2" Left="18.9" Top="198.45" Width="680.38" Height="18.9">
+      <ShapeObject Name="Shape1" Left="18.9" Width="444.15" Height="94.5" Border.Width="0.5"/>
+      <ShapeObject Name="Shape2" Left="510.3" Width="189" Height="37.8" Border.Width="0.5"/>
+      <ShapeObject Name="Shape3" Left="510.3" Top="56.7" Width="189" Height="37.8" Border.Width="0.5"/>
+    </PageHeaderBand>
+    <ColumnHeaderBand Name="ColumnHeader1" Top="316.42" Width="718.2" Height="18.9">
+      <TableObject Name="Table2" Left="18.9" Width="680.38" Height="18.9">
         <TableColumn Name="Column6" Width="278.77"/>
         <TableColumn Name="Column7" Width="118.12"/>
         <TableColumn Name="Column8" Width="127.57"/>
         <TableColumn Name="Column9" Width="155.92"/>
         <TableRow Name="Row6">
-          <TableCell Name="Cell26" Border.Lines="Left, Top, Bottom" Border.Width="0.5" Text="รายการสินค้า" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
-          <TableCell Name="Cell27" Border.Lines="All" Border.Width="0.5" Text="จำนวน" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
-          <TableCell Name="Cell28" Border.Lines="Top, Bottom" Border.Width="0.5" Text="ราคาต่อหน่วย" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
-          <TableCell Name="Cell29" Border.Lines="All" Border.Width="0.5" Text="จำนวนเงิน" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+          <TableCell Name="Cell26" Border.Lines="Left, Top, Bottom" Border.Width="0.5" Text="รายการสินค้า" HorzAlign="Center" VertAlign="Center" Font="Browallia New, 10pt"/>
+          <TableCell Name="Cell27" Border.Lines="All" Border.Width="0.5" Text="จำนวน" HorzAlign="Center" VertAlign="Center" Font="Browallia New, 10pt"/>
+          <TableCell Name="Cell28" Border.Lines="Top, Bottom" Border.Width="0.5" Text="ราคาต่อหน่วย" HorzAlign="Center" VertAlign="Center" Font="Browallia New, 10pt"/>
+          <TableCell Name="Cell29" Border.Lines="All" Border.Width="0.5" Text="จำนวนเงิน" HorzAlign="Center" VertAlign="Center" Font="Browallia New, 10pt"/>
         </TableRow>
       </TableObject>
-    </PageHeaderBand>
-    <DataBand Name="Data1" Top="345.53" Width="718.2" Height="18.9" DataSource="ProductList">
+    </ColumnHeaderBand>
+    <DataBand Name="Data1" Top="337.61" Width="718.2" Height="18.9" DataSource="ProductList">
       <TableObject Name="Table3" Left="18.9" Width="680.38" Height="18.9">
         <TableColumn Name="Column10" Width="278.77"/>
         <TableColumn Name="Column11" Width="118.12"/>
         <TableColumn Name="Column12" Width="127.57"/>
         <TableColumn Name="Column13" Width="155.92"/>
         <TableRow Name="Row7">
-          <TableCell Name="Cell30" Border.Lines="Left, Top" Border.Width="0.5" Text="[ProductList.ProductName]" VertAlign="Center" Font="Arial, 10pt"/>
-          <TableCell Name="Cell31" Border.Lines="Left, Right, Top" Border.Width="0.5" Text="[ProductList.Qty] [ProductList.UnitName]" HorzAlign="Right" VertAlign="Center" Font="Arial, 10pt"/>
-          <TableCell Name="Cell32" Border.Lines="Top" Border.Width="0.5" Text="[ProductList.Price]" HorzAlign="Right" VertAlign="Center" Font="Arial, 10pt"/>
-          <TableCell Name="Cell33" Border.Lines="Left, Right, Top" Border.Width="0.5" Text="[ProductList.TotalPrice]" HorzAlign="Right" VertAlign="Center" Font="Arial, 10pt"/>
+          <TableCell Name="Cell30" Border.Lines="Left" Border.Width="0.5" Text="[ProductList.ProductName]" VertAlign="Center" Font="Browallia New, 10pt"/>
+          <TableCell Name="Cell31" Border.Lines="Left, Right" Border.Width="0.5" Text="[ProductList.Qty] [ProductList.UnitName]" HorzAlign="Right" VertAlign="Center" Font="Browallia New, 10pt"/>
+          <TableCell Name="Cell32" Text="[ProductList.Price]" HorzAlign="Right" VertAlign="Center" Font="Browallia New, 10pt"/>
+          <TableCell Name="Cell33" Border.Lines="Left, Right" Border.Width="0.5" Text="[ProductList.TotalPrice]" HorzAlign="Right" VertAlign="Center" Font="Browallia New, 10pt"/>
         </TableRow>
       </TableObject>
     </DataBand>
-    <PageFooterBand Name="PageFooter1" Top="367.1" Width="718.2" Height="160.65">
-      <TableObject Name="Table7" Left="18.9" Top="18.9" Width="396.89" Height="56.7">
-        <TableColumn Name="Column22" Width="278.77"/>
-        <TableColumn Name="Column23" Width="118.12"/>
-        <TableRow Name="Row13" Height="56.7">
-          <TableCell Name="Cell46" Border.Lines="Left, Bottom" Border.Width="0.5" Text="1. กรุณาสั่งจ่ายเช็คในนาม บริษัท สยามเพรสซิเดนท์ฟู้ดส์ จำกัด&#13;&#10;2. บริษทฯ จะคิดดอกเบี้ยร้อยละ 1.5 ต่อเดือน เมื่อเกินกำหนดชำระ&#13;&#10;3. กรณีชำระด้วยเช็ค ใบเสร็จรับเงินจะสมบูรณ์ก็ต่อเมื่อเช็คเรียกเก็บเงินจากธนาคารได้เรียบร้อยแล้ว" VertAlign="Center" Font="Browallia New, 10pt" ColSpan="2"/>
-          <TableCell Name="Cell47" Border.Lines="Left, Right, Bottom" Border.Width="0.5" HorzAlign="Right" VertAlign="Center" Font="Arial, 10pt" ColSpan="2"/>
-        </TableRow>
-      </TableObject>
-      <TableObject Name="Table6" Left="18.9" Top="75.6" Width="396.89" Height="28.35">
-        <TableColumn Name="Column20" Width="278.77"/>
-        <TableColumn Name="Column21" Width="118.12"/>
-        <TableRow Name="Row12" Height="28.35">
-          <TableCell Name="Cell44" Border.Lines="Left, Top, Bottom" Border.Width="0.5" Fill.Color="Gainsboro" Text="([GrandTotalInThai])" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt" ColSpan="2"/>
-          <TableCell Name="Cell45" Border.Lines="Left, Right, Bottom" Border.Width="0.5" HorzAlign="Right" VertAlign="Center" Font="Arial, 10pt"/>
-        </TableRow>
-      </TableObject>
+    <ColumnFooterBand Name="ColumnFooter1" Top="358.79" Width="718.2" Height="103.95">
       <TableObject Name="Table5" Left="415.8" Top="18.9" Width="283.49" Height="85.05">
         <TableColumn Name="Column18" Width="127.57"/>
         <TableColumn Name="Column19" Width="155.92"/>
         <TableRow Name="Row9" Height="28.35">
-          <TableCell Name="Cell38" Border.Lines="Left, Bottom" Border.Width="0.5" Text="รวมมูลค่าสินค้า" VertAlign="Center" Font="Arial, 10pt"/>
-          <TableCell Name="Cell39" Border.Lines="Left, Right, Bottom" Border.Width="0.5" Text="[Total]" HorzAlign="Right" VertAlign="Center" Font="Arial, 10pt"/>
+          <TableCell Name="Cell38" Border.Lines="Left, Bottom" Border.Width="0.5" Text="รวมมูลค่าสินค้า" VertAlign="Center" Font="Browallia New, 10pt"/>
+          <TableCell Name="Cell39" Border.Lines="Left, Right, Bottom" Border.Width="0.5" Text="[Total]" HorzAlign="Right" VertAlign="Center" Font="Browallia New, 10pt"/>
         </TableRow>
         <TableRow Name="Row10" Height="28.35">
-          <TableCell Name="Cell40" Border.Lines="All" Border.Width="0.5" Text="ภาษีมูลค่าเพิ่ม" VertAlign="Center" Font="Arial, 10pt"/>
-          <TableCell Name="Cell41" Border.Lines="All" Border.Width="0.5" Text="[Vat]" HorzAlign="Right" VertAlign="Center" Font="Arial, 10pt"/>
+          <TableCell Name="Cell40" Border.Lines="All" Border.Width="0.5" Text="ภาษีมูลค่าเพิ่ม" VertAlign="Center" Font="Browallia New, 10pt"/>
+          <TableCell Name="Cell41" Border.Lines="All" Border.Width="0.5" Text="[Vat]" HorzAlign="Right" VertAlign="Center" Font="Browallia New, 10pt"/>
         </TableRow>
         <TableRow Name="Row11" Height="28.35">
-          <TableCell Name="Cell42" Border.Lines="All" Border.Width="0.5" Text="รวมเงิน" VertAlign="Center" Font="Arial, 10pt"/>
-          <TableCell Name="Cell43" Border.Lines="All" Border.Width="0.5" Text="[GrandTotal]" HorzAlign="Right" VertAlign="Center" Font="Arial, 10pt"/>
+          <TableCell Name="Cell42" Border.Lines="All" Border.Width="0.5" Text="รวมเงิน" VertAlign="Center" Font="Browallia New, 10pt"/>
+          <TableCell Name="Cell43" Border.Lines="All" Border.Width="0.5" Text="[GrandTotal]" HorzAlign="Right" VertAlign="Center" Font="Browallia New, 10pt"/>
         </TableRow>
       </TableObject>
       <TableObject Name="Table4" Left="18.9" Width="680.38" Height="18.9">
@@ -139,12 +128,28 @@
         <TableColumn Name="Column16" Width="127.57"/>
         <TableColumn Name="Column17" Width="155.92"/>
         <TableRow Name="Row8">
-          <TableCell Name="Cell34" Border.Lines="Left, Bottom" Border.Width="0.5" Text="E. &amp; OE./ผิด ตก ยกเว้น" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
-          <TableCell Name="Cell35" Border.Lines="Left, Right, Bottom" Border.Width="0.5" HorzAlign="Right" VertAlign="Center" Font="Arial, 10pt"/>
-          <TableCell Name="Cell36" Border.Lines="Bottom" Border.Width="0.5" HorzAlign="Right" VertAlign="Center" Font="Arial, 10pt"/>
-          <TableCell Name="Cell37" Border.Lines="Left, Right, Bottom" Border.Width="0.5" HorzAlign="Right" VertAlign="Center" Font="Arial, 10pt"/>
+          <TableCell Name="Cell34" Border.Lines="Left, Bottom" Border.Width="0.5" Text="E. &amp; OE./ผิด ตก ยกเว้น" HorzAlign="Center" VertAlign="Center" Font="Browallia New, 10pt"/>
+          <TableCell Name="Cell35" Border.Lines="Left, Right, Bottom" Border.Width="0.5" HorzAlign="Right" VertAlign="Center" Font="Browallia New, 10pt"/>
+          <TableCell Name="Cell36" Border.Lines="Bottom" Border.Width="0.5" HorzAlign="Right" VertAlign="Center" Font="Browallia New, 10pt"/>
+          <TableCell Name="Cell37" Border.Lines="Left, Right, Bottom" Border.Width="0.5" HorzAlign="Right" VertAlign="Center" Font="Browallia New, 10pt"/>
         </TableRow>
       </TableObject>
+      <TextObject Name="Text13" Left="18.9" Top="18.9" Width="396.9" Height="56.7" Border.Lines="Left" Border.Width="0.5" Text="1. กรุณาสั่งจ่ายเช็คในนาม บริษัท สยามเพรสซิเดนท์ฟู้ดส์ จำกัด&#13;&#10;2. บริษัทฯ จะคิดดอกเบี้ยร้อยละ 1.5 ต่อเดือน เมื่อเกินกำหนดชำระ&#13;&#10;3. กรณีชำระด้วยเช็ค ใบเสร็จรับเงินจะสมบูรณ์ก็ต่อเมื่อเช็คเรียกเก็บเงินจากธนาคารได้เรียบร้อยแล้ว" VertAlign="Center" Font="Browallia New, 10pt"/>
+      <TableObject Name="Table6" Left="18.9" Top="75.6" Width="396.89" Height="28.35">
+        <TableColumn Name="Column20" Width="278.77"/>
+        <TableColumn Name="Column21" Width="118.12"/>
+        <TableRow Name="Row12" Height="28.35">
+          <TableCell Name="Cell44" Border.Lines="Left, Top, Bottom" Border.Width="0.5" Fill.Color="Gainsboro" Text="([GrandTotalInThai])" HorzAlign="Center" VertAlign="Center" Font="Browallia New, 10pt" ColSpan="2"/>
+          <TableCell Name="Cell45" Border.Lines="Left, Right, Bottom" Border.Width="0.5" HorzAlign="Right" VertAlign="Center" Font="Browallia New, 10pt"/>
+        </TableRow>
+      </TableObject>
+    </ColumnFooterBand>
+    <PageFooterBand Name="PageFooter1" Top="465.03" Width="718.2" Height="94.5">
+      <TextObject Name="Text16" Left="18.9" Top="75.6" Width="207.9" Height="18.9" Border.Lines="Top" Border.Style="Dot" Text="ผู้รับสินค้า" HorzAlign="Center" VertAlign="Center" Font="Browallia New, 10pt"/>
+      <TextObject Name="Text17" Left="255.15" Top="75.6" Width="207.9" Height="18.9" Border.Lines="Top" Border.Style="Dot" Text="ผู้ส่งสินค้า" HorzAlign="Center" VertAlign="Center" Font="Browallia New, 10pt"/>
+      <TextObject Name="Text18" Left="491.4" Top="75.6" Width="207.9" Height="18.9" Border.Lines="Top" Border.Style="Dot" Text="ผู้มีอำนาจลงนาม" HorzAlign="Center" VertAlign="Center" Font="Browallia New, 10pt"/>
+      <TextObject Name="Text15" Left="453.6" Width="170.1" Height="18.9" Text="บริษัท สยามเพรสซิเดนท์ฟู้ดส์จำกัด" VertAlign="Center" Font="Browallia New, 10pt, style=Bold"/>
+      <TextObject Name="Text14" Left="415.8" Width="37.8" Height="18.9" Text="ในนาม" VertAlign="Center" Font="Browallia New, 10pt"/>
     </PageFooterBand>
   </ReportPage>
 </Report>

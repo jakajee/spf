@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using GreatFriends.ThaiBahtText;
 
 namespace SPF_Receipt.Controllers
 {
@@ -14,8 +15,8 @@ namespace SPF_Receipt.Controllers
     [Route("receipts/[action]")]
     public class ReceiptController : ControllerBase
     {
-        [HttpGet]
-        public FileContentResult Download()
+        [HttpPost]
+        public FileContentResult Download(ReceiptRequestModel request)
         {
             byte[] content;
             using (var memoryStream = new MemoryStream())
@@ -24,34 +25,79 @@ namespace SPF_Receipt.Controllers
                 var buildPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 
                 report.Load($"{buildPath}/Reports/TaxInvoice.frx");
-                var number = report.GetParameter("ReceiptNumber");
-                number.Value = "612345678";
-
-                var list = Enumerable.Range(1, 20).Select(e => new ProductReceipt<string>
-                {
-                    Price = "100",
-                    ProductName = "hehg",
-                    Qty = "heh",
-                    TotalPrice = "efef",
-                    UnitName = "ลัง"
-                }).ToList();
-
-                report.RegisterData(list, "ProductList");
-
+                SetReportData(request, report);
 
                 report.Prepare();
 
                 var pdfExport = new PDFSimpleExport();
                 pdfExport.Export(report, memoryStream);
-
                 content = memoryStream.ToArray();
             }
 
-
             return new FileContentResult(content, "application/pdf")
             {
-                FileDownloadName = $"Receipt_{DateTime.Now.ToString("yyyyMMdd_HHmm")}.pdf"
+                FileDownloadName = $"TaxInvoice_{DateTime.Now.ToString("yyyyMMdd_HHmm")}.pdf"
             };
+        }
+
+        private void SetReportData(ReceiptRequestModel request, Report report)
+        {
+            var reportModel = GetReportModel(request);
+
+            // header
+            report.SetParameterValue("HeaderTitle1", "ใบกำกับภาษี/ใบส่งสินค้า");
+            report.SetParameterValue("HeaderTitle2", "TAX INVOICE / INVOICE");
+            report.SetParameterValue("HeaderTitle3", "ต้นฉบับ");
+            report.SetParameterValue("CustomerName", request.Customer.FullName);
+            report.SetParameterValue("Address1", request.Customer.Address1);
+            report.SetParameterValue("Address2", request.Customer.Address2);
+            report.SetParameterValue("TaxNumber", request.Customer.TaxNumber);
+            report.SetParameterValue("ReceiptNumber", reportModel.ReportHeader.ReceiptNumber);
+            report.SetParameterValue("ReceiptDate", reportModel.ReportHeader.ReceiptDateString);
+            report.SetParameterValue("Payment", reportModel.ReportHeader.Payment);
+            report.SetParameterValue("DueDate", reportModel.ReportHeader.DueDateString);
+
+            // body
+            report.RegisterData(reportModel.ReportBody.ToList(), "ProductList");
+
+            // footer
+            report.SetParameterValue("Total", reportModel.ReportFooter.Total);
+            report.SetParameterValue("Vat", reportModel.ReportFooter.Vat);
+            report.SetParameterValue("GrandTotal", reportModel.ReportFooter.GrandTotal);
+            report.SetParameterValue("GrandTotalInThai", reportModel.ReportFooter.GrandTotalInThai);
+        }
+
+        private ReportModel GetReportModel(ReceiptRequestModel request)
+        {
+            var reportModel = new ReportModel();
+
+            // header
+            reportModel.ReportHeader = request.ReceiptHeader;
+
+            // body
+            var data = Enumerable.Range(1, 28).Select(e => new ReportDataModel<string, string>()).ToList();
+            for (int i = 0; i < request.ProductList.Count(); i++)
+            {
+                var requestProduct = request.ProductList.ElementAt(i);
+                var reportProduct = data[0];
+
+                reportProduct.ProductName = requestProduct.ProductName;
+                reportProduct.UnitName = requestProduct.UnitName;
+                reportProduct.Qty = requestProduct.Qty.ToString("D");
+                reportProduct.Price = string.Format("{0:N2}", requestProduct.Price); // need to add .- or not
+                reportProduct.TotalPrice = string.Format("{0:N2}", requestProduct.TotalPrice); // need to add .- or not
+            }
+
+            // footer
+            reportModel.ReportFooter = new ReportFooterModelExtend
+            {
+                Total = request.ReceiptSummary.Total.ToString("N2"),
+                Vat = request.ReceiptSummary.Vat.ToString("N2"),
+                GrandTotal = request.ReceiptSummary.GrandTotal.ToString("N2"),
+                GrandTotalInThai = request.ReceiptSummary.GrandTotal.ThaiBahtText()
+            };
+
+            return reportModel;
         }
     }
 }
