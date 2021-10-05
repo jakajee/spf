@@ -16,7 +16,12 @@ namespace SPF_Receipt.Controllers
     public class ReceiptController : ControllerBase
     {
         [HttpPost]
-        public FileContentResult Download(ReceiptRequestModel request)
+        public FileContentResult DownloadTaxInvoice(ReceiptRequestModel request) => DownloadReport(request);
+
+        [HttpPost]
+        public FileContentResult DownloadReceipt(ReceiptRequestModel request) => DownloadReport(request, "Receipt");
+
+        private FileContentResult DownloadReport(ReceiptRequestModel request, string reportName = "TaxInvoice", string headerTitle3 = "ต้นฉบับ")
         {
             byte[] content;
             using (var memoryStream = new MemoryStream())
@@ -24,8 +29,8 @@ namespace SPF_Receipt.Controllers
                 var report = new Report();
                 var buildPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 
-                report.Load($"{buildPath}/Reports/TaxInvoice.frx");
-                SetReportData(request, report);
+                report.Load($"{buildPath}/Reports/{reportName}.frx");
+                SetReportData(request, report, headerTitle3);
 
                 report.Prepare();
 
@@ -36,15 +41,16 @@ namespace SPF_Receipt.Controllers
 
             return new FileContentResult(content, "application/pdf")
             {
-                FileDownloadName = $"TaxInvoice_{DateTime.Now.ToString("yyyyMMdd_HHmm")}.pdf"
+                FileDownloadName = $"{reportName}_{DateTime.Now.ToString("yyyyMMdd_HHmm")}.pdf"
             };
         }
 
-        private void SetReportData(ReceiptRequestModel request, Report report)
+        private void SetReportData(ReceiptRequestModel request, Report report, string headerTitle3 = "ต้นฉบับ")
         {
             var reportModel = GetReportModel(request);
 
             // header
+            report.SetParameterValue("NotTaxInvoiceText", "");
             report.SetParameterValue("HeaderTitle1", "ใบกำกับภาษี/ใบส่งสินค้า");
             report.SetParameterValue("HeaderTitle2", "TAX INVOICE / INVOICE");
             report.SetParameterValue("HeaderTitle3", "ต้นฉบับ");
@@ -76,7 +82,7 @@ namespace SPF_Receipt.Controllers
 
             // body
             var data = Enumerable.Range(1, 28).Select(e => new ReportDataModel<string, string>()).ToList();
-            for (int i = 0; i < request.ProductList.Count(); i++)
+            for (int i = 0; i < request.ProductList.Count() && request.ProductList.Count() < 28; i++)
             {
                 var requestProduct = request.ProductList.ElementAt(i);
                 var reportProduct = data[0];
