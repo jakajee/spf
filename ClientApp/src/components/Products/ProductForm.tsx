@@ -1,7 +1,8 @@
 import React from "react"
 import { useDispatch, useSelector } from "react-redux";
 import Select, { SingleValue } from "react-select";
-import { useDropdownUnits, Option } from "../../hooks/SystemData";
+import { Option } from "../../hooks/BaseModel";
+import { useDropdownUnits } from "../../hooks/SystemData";
 import { ApplicationState } from "../../store";
 import { ProductActions, ProductModel } from "../../store/ProductsStore";
 import Icon from "../../util/Icon";
@@ -62,7 +63,7 @@ function ProductForm() {
             ProductActions.selectProduct({
                 ...productModel,
                 unit: {
-                    id: value,
+                    id: value as number | null,
                     name: label
                 }
             })

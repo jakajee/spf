@@ -1,15 +1,8 @@
 import { useEffect, useState } from "react"
 import api from "../api";
+import { BaseDropdown, Option } from "./BaseModel";
 
-interface BaseDropdown {
-    id: number | null,
-    name: string | null
-}
 
-export interface Option {
-    value: number | null,
-    label: string | null
-}
 
 export type Unit = BaseDropdown;
 
