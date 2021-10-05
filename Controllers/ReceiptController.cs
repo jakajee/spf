@@ -3,10 +3,8 @@ using FastReport.Export.PdfSimple;
 using Microsoft.AspNetCore.Mvc;
 using SPF_Receipt.ViewModel;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using GreatFriends.ThaiBahtText;
 
 namespace SPF_Receipt.Controllers
@@ -35,7 +33,7 @@ namespace SPF_Receipt.Controllers
                 report.Prepare();
 
                 var pdfExport = new PDFSimpleExport();
-                pdfExport.Export(report, memoryStream);
+                pdfExport.Export(report, memoryStream);                
                 content = memoryStream.ToArray();
             }
 
