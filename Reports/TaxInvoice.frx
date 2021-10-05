@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="10/04/2021 21:35:04" ReportInfo.Modified="10/05/2021 20:29:29" ReportInfo.CreatorVersion="2021.4.0.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="10/04/2021 21:35:04" ReportInfo.Modified="10/05/2021 21:36:39" ReportInfo.CreatorVersion="2021.4.0.0">
   <Dictionary>
-    <BusinessObjectDataSource Name="ProductList" ReferenceName="ProductList" Enabled="true">
+    <BusinessObjectDataSource Name="ProductList" ReferenceName="ProductList" DataType="System.Int32" Enabled="true">
       <Column Name="ProductName" DataType="System.String"/>
-      <Column Name="UnitName" DataType="System.String"/>
       <Column Name="Qty" DataType="System.String"/>
+      <Column Name="UnitName" DataType="System.String"/>
       <Column Name="Price" DataType="System.String"/>
       <Column Name="TotalPrice" DataType="System.String"/>
     </BusinessObjectDataSource>
@@ -17,6 +17,10 @@
     <Parameter Name="ReceiptDate" DataType="System.String"/>
     <Parameter Name="Payment" DataType="System.String"/>
     <Parameter Name="DueDate" DataType="System.String"/>
+    <Parameter Name="Total" DataType="System.String"/>
+    <Parameter Name="Vat" DataType="System.String"/>
+    <Parameter Name="GrandTotal" DataType="System.String"/>
+    <Parameter Name="GrandTotalInThai" DataType="System.String"/>
   </Dictionary>
   <ReportPage Name="Page1" Watermark.Font="Arial, 60pt">
     <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="122.85">
@@ -70,8 +74,8 @@
       <ShapeObject Name="Shape2" Left="510.3" Width="189" Height="37.8"/>
       <ShapeObject Name="Shape3" Left="510.3" Top="56.7" Width="189" Height="37.8"/>
       <TableObject Name="Table2" Left="18.9" Top="198.45" Width="680.38" Height="18.9">
-        <TableColumn Name="Column6" Width="259.87"/>
-        <TableColumn Name="Column7" Width="137.02"/>
+        <TableColumn Name="Column6" Width="278.77"/>
+        <TableColumn Name="Column7" Width="118.12"/>
         <TableColumn Name="Column8" Width="127.57"/>
         <TableColumn Name="Column9" Width="155.92"/>
         <TableRow Name="Row6">
@@ -82,20 +86,65 @@
         </TableRow>
       </TableObject>
     </PageHeaderBand>
-    <DataBand Name="Data1" Top="345.53" Width="718.2" Height="18.9">
+    <DataBand Name="Data1" Top="345.53" Width="718.2" Height="18.9" DataSource="ProductList">
       <TableObject Name="Table3" Left="18.9" Width="680.38" Height="18.9">
-        <TableColumn Name="Column10" Width="259.87"/>
-        <TableColumn Name="Column11" Width="137.02"/>
+        <TableColumn Name="Column10" Width="278.77"/>
+        <TableColumn Name="Column11" Width="118.12"/>
         <TableColumn Name="Column12" Width="127.57"/>
         <TableColumn Name="Column13" Width="155.92"/>
         <TableRow Name="Row7">
-          <TableCell Name="Cell30" Border.Lines="Left, Top, Bottom" Border.Width="0.5" Text="[ProductList.ProductName]" VertAlign="Center" Font="Arial, 10pt"/>
-          <TableCell Name="Cell31" Border.Lines="All" Border.Width="0.5" Text="[ProductList.Qty]" HorzAlign="Right" VertAlign="Center" Font="Arial, 10pt"/>
-          <TableCell Name="Cell32" Border.Lines="Top, Bottom" Border.Width="0.5" Text="[ProductList.Price]" HorzAlign="Right" VertAlign="Center" Font="Arial, 10pt"/>
-          <TableCell Name="Cell33" Border.Lines="All" Border.Width="0.5" Text="[ProductList.TotalPrice]" HorzAlign="Right" VertAlign="Center" Font="Arial, 10pt"/>
+          <TableCell Name="Cell30" Border.Lines="Left, Top" Border.Width="0.5" Text="[ProductList.ProductName]" VertAlign="Center" Font="Arial, 10pt"/>
+          <TableCell Name="Cell31" Border.Lines="Left, Right, Top" Border.Width="0.5" Text="[ProductList.Qty] [ProductList.UnitName]" HorzAlign="Right" VertAlign="Center" Font="Arial, 10pt"/>
+          <TableCell Name="Cell32" Border.Lines="Top" Border.Width="0.5" Text="[ProductList.Price]" HorzAlign="Right" VertAlign="Center" Font="Arial, 10pt"/>
+          <TableCell Name="Cell33" Border.Lines="Left, Right, Top" Border.Width="0.5" Text="[ProductList.TotalPrice]" HorzAlign="Right" VertAlign="Center" Font="Arial, 10pt"/>
         </TableRow>
       </TableObject>
     </DataBand>
-    <PageFooterBand Name="PageFooter1" Top="367.1" Width="718.2" Height="75.6"/>
+    <PageFooterBand Name="PageFooter1" Top="367.1" Width="718.2" Height="160.65">
+      <TableObject Name="Table7" Left="18.9" Top="18.9" Width="396.89" Height="56.7">
+        <TableColumn Name="Column22" Width="278.77"/>
+        <TableColumn Name="Column23" Width="118.12"/>
+        <TableRow Name="Row13" Height="56.7">
+          <TableCell Name="Cell46" Border.Lines="Left, Bottom" Border.Width="0.5" Text="1. กรุณาสั่งจ่ายเช็คในนาม บริษัท สยามเพรสซิเดนท์ฟู้ดส์ จำกัด&#13;&#10;2. บริษทฯ จะคิดดอกเบี้ยร้อยละ 1.5 ต่อเดือน เมื่อเกินกำหนดชำระ&#13;&#10;3. กรณีชำระด้วยเช็ค ใบเสร็จรับเงินจะสมบูรณ์ก็ต่อเมื่อเช็คเรียกเก็บเงินจากธนาคารได้เรียบร้อยแล้ว" VertAlign="Center" Font="Browallia New, 10pt" ColSpan="2"/>
+          <TableCell Name="Cell47" Border.Lines="Left, Right, Bottom" Border.Width="0.5" HorzAlign="Right" VertAlign="Center" Font="Arial, 10pt" ColSpan="2"/>
+        </TableRow>
+      </TableObject>
+      <TableObject Name="Table6" Left="18.9" Top="75.6" Width="396.89" Height="28.35">
+        <TableColumn Name="Column20" Width="278.77"/>
+        <TableColumn Name="Column21" Width="118.12"/>
+        <TableRow Name="Row12" Height="28.35">
+          <TableCell Name="Cell44" Border.Lines="Left, Top, Bottom" Border.Width="0.5" Fill.Color="Gainsboro" Text="([GrandTotalInThai])" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt" ColSpan="2"/>
+          <TableCell Name="Cell45" Border.Lines="Left, Right, Bottom" Border.Width="0.5" HorzAlign="Right" VertAlign="Center" Font="Arial, 10pt"/>
+        </TableRow>
+      </TableObject>
+      <TableObject Name="Table5" Left="415.8" Top="18.9" Width="283.49" Height="85.05">
+        <TableColumn Name="Column18" Width="127.57"/>
+        <TableColumn Name="Column19" Width="155.92"/>
+        <TableRow Name="Row9" Height="28.35">
+          <TableCell Name="Cell38" Border.Lines="Left, Bottom" Border.Width="0.5" Text="รวมมูลค่าสินค้า" VertAlign="Center" Font="Arial, 10pt"/>
+          <TableCell Name="Cell39" Border.Lines="Left, Right, Bottom" Border.Width="0.5" Text="[Total]" HorzAlign="Right" VertAlign="Center" Font="Arial, 10pt"/>
+        </TableRow>
+        <TableRow Name="Row10" Height="28.35">
+          <TableCell Name="Cell40" Border.Lines="All" Border.Width="0.5" Text="ภาษีมูลค่าเพิ่ม" VertAlign="Center" Font="Arial, 10pt"/>
+          <TableCell Name="Cell41" Border.Lines="All" Border.Width="0.5" Text="[Vat]" HorzAlign="Right" VertAlign="Center" Font="Arial, 10pt"/>
+        </TableRow>
+        <TableRow Name="Row11" Height="28.35">
+          <TableCell Name="Cell42" Border.Lines="All" Border.Width="0.5" Text="รวมเงิน" VertAlign="Center" Font="Arial, 10pt"/>
+          <TableCell Name="Cell43" Border.Lines="All" Border.Width="0.5" Text="[GrandTotal]" HorzAlign="Right" VertAlign="Center" Font="Arial, 10pt"/>
+        </TableRow>
+      </TableObject>
+      <TableObject Name="Table4" Left="18.9" Width="680.38" Height="18.9">
+        <TableColumn Name="Column14" Width="278.77"/>
+        <TableColumn Name="Column15" Width="118.12"/>
+        <TableColumn Name="Column16" Width="127.57"/>
+        <TableColumn Name="Column17" Width="155.92"/>
+        <TableRow Name="Row8">
+          <TableCell Name="Cell34" Border.Lines="Left, Bottom" Border.Width="0.5" Text="E. &amp; OE./ผิด ตก ยกเว้น" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+          <TableCell Name="Cell35" Border.Lines="Left, Right, Bottom" Border.Width="0.5" HorzAlign="Right" VertAlign="Center" Font="Arial, 10pt"/>
+          <TableCell Name="Cell36" Border.Lines="Bottom" Border.Width="0.5" HorzAlign="Right" VertAlign="Center" Font="Arial, 10pt"/>
+          <TableCell Name="Cell37" Border.Lines="Left, Right, Bottom" Border.Width="0.5" HorzAlign="Right" VertAlign="Center" Font="Arial, 10pt"/>
+        </TableRow>
+      </TableObject>
+    </PageFooterBand>
   </ReportPage>
 </Report>

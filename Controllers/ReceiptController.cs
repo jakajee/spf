@@ -23,29 +23,18 @@ namespace SPF_Receipt.Controllers
                 var report = new Report();
                 var buildPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 
-                report.Load($"{buildPath}/Reports/ReceiptReport.frx");
+                report.Load($"{buildPath}/Reports/TaxInvoice.frx");
                 var number = report.GetParameter("ReceiptNumber");
                 number.Value = "612345678";
 
-                var list = new List<ProductReceipt<string>>
+                var list = Enumerable.Range(1, 20).Select(e => new ProductReceipt<string>
                 {
-                    new ProductReceipt<string>
-                    {
-                        Price = "1234",
-                        ProductName = "test",
-                        Qty = "55",
-                        TotalPrice = "777",
-                        UnitName = "444"
-                    },
-                    new ProductReceipt<string>
-                    {
-                        Price = "1234",
-                        ProductName = "test",
-                        Qty = "55",
-                        TotalPrice = "777",
-                        UnitName = "444"
-                    }
-                };
+                    Price = "100",
+                    ProductName = "hehg",
+                    Qty = "heh",
+                    TotalPrice = "efef",
+                    UnitName = "ลัง"
+                }).ToList();
 
                 report.RegisterData(list, "ProductList");
 
