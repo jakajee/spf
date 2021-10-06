@@ -48,7 +48,7 @@ export default () => {
         <>
             <hr />
             <div className="input-group mb-3">
-                <input type="text" className="form-control"
+                <input type="text" className="form-control form-control-sm"
                     value={filter}
                     onChange={onChangeFilter}
                     placeholder="ค้นหาลูกค้าโดยใส่ชื่อลูกค้า/ที่อยู่/เลขประจำตัวผู้เสียภาษีอากร..."

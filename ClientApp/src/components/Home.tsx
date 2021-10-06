@@ -9,8 +9,8 @@ export default () => {
         footerLink: string
     }[] = [{
         headerIcon: "file-earmark-spreadsheet",
-        headerTitle: "ใบกำกับภาษี",
-        bodyDetail: `เลือกลูกค้าที่ต้องการพิมพ์ใบกำกับภาษี เลือกสินค้า ใส่จำนวน`,
+        headerTitle: "ใบกำกับภาษี/ใบเสร็จ",
+        bodyDetail: `เลือกลูกค้าที่ต้องการพิมพ์ใบกำกับภาษี/ใบเสร็จ เลือกสินค้า ใส่จำนวน`,
         footerLink: "/receipts"
     }, {
         headerIcon: "people",

@@ -3,3 +3,8 @@
     margin-left: 1px;
     color: red;
 }
+
+legend {
+    font-size: 1.2em;
+    text-decoration-line: underline;
+}

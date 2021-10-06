@@ -5,5 +5,5 @@ export interface BaseDropdown {
 
 export interface Option {
     value: number | string | null,
-    label: string | null
+    label: string | null,
 }

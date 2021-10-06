@@ -81,7 +81,7 @@ function ProductForm() {
                             <input
                                 type="text"
                                 name="name"
-                                className="form-control"
+                                className="form-control form-control-sm"
                                 value={productModel.name}
                                 onChange={onInputChange}
                             />
@@ -91,7 +91,7 @@ function ProductForm() {
                             <input
                                 type="number"
                                 name="price"
-                                className="form-control"
+                                className="form-control form-control-sm"
                                 value={productModel.price}
                                 onChange={onInputChange}
                             />

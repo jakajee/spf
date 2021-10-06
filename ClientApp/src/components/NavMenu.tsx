@@ -31,7 +31,7 @@ class NavMenu extends React.PureComponent<{ history?: History }, { isOpen: boole
         const activeLink = this.props.history?.location.pathname
         const links: { [key: string]: string } = {
             "/home": "หน้าหลัก",
-            "/receipts": "ใบกำกับภาษี",
+            "/receipts": "ใบกำกับภาษี/ใบเสร็จ",
             "/customers": "ลูกค้า",
             "/products": "สินค้า"
         };

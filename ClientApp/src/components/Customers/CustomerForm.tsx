@@ -60,7 +60,7 @@ export default () => {
                             <input
                                 type="text"
                                 name="fullName"
-                                className="form-control"
+                                className="form-control form-control-sm"
                                 value={customerModel.fullName}
                                 onChange={onInputChange}
                                 required
@@ -71,7 +71,7 @@ export default () => {
                             <input
                                 type="text"
                                 name="address1"
-                                className="form-control mb-2"
+                                className="form-control form-control-sm mb-2"
                                 value={customerModel.address1}
                                 onChange={onInputChange}
                                 required
@@ -79,7 +79,7 @@ export default () => {
                             <input
                                 type="text"
                                 name="address2"
-                                className="form-control"
+                                className="form-control form-control-sm"
                                 value={customerModel.address2}
                                 onChange={onInputChange}
                                 required
@@ -90,7 +90,7 @@ export default () => {
                             <input
                                 type="text"
                                 name="taxNumber"
-                                className="form-control"
+                                className="form-control form-control-sm"
                                 value={customerModel.taxNumber}
                                 onChange={onInputChange}
                                 required
