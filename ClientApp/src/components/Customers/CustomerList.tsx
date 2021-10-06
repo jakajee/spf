@@ -47,7 +47,7 @@ export default () => {
     return (
         <>
             <hr />
-            <div className="input-group mb-3">
+            <div className="input-group input-group-sm mb-3">
                 <input type="text" className="form-control form-control-sm"
                     value={filter}
                     onChange={onChangeFilter}
