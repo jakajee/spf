@@ -103,11 +103,11 @@ function ProductForm() {
                     </div>
                     <div className="row">
                         <div className="col">
-                            <button type="submit" className="btn btn-success me-2" disabled={!productModel.unit || !productModel.name}>
+                            <button type="submit" className="btn btn-sm btn-success me-2" disabled={!productModel.unit || !productModel.name}>
                                 <Icon name="check-circle" />
                                 บันทึก
                             </button>
-                            <button type="reset" className="btn btn-secondary">
+                            <button type="reset" className="btn btn-sm btn-secondary">
                                 <Icon name="arrow-counterclockwise" />
                                 เคลียร์
                             </button>

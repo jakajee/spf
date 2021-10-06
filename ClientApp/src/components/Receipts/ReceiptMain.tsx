@@ -54,7 +54,7 @@ export default () => {
             <div className="card border-primary">
                 <div className="card-header bg-primary border-primary text-white d-flex justify-content-between">
                     <span style={{ lineHeight: "2.3" }}>แบบฟอร์มข้อมูลใบกำกับภาษี/ใบเสร็จรับเงิน</span>
-                    <button type="button" className="btn btn-secondary text-white">
+                    <button type="button" className="btn btn-sm btn-secondary text-white">
                         <Icon name="printer" marginRight={0} />
                     </button>
                 </div>

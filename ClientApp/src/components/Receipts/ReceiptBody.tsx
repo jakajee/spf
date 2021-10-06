@@ -31,7 +31,7 @@ export default () => {
                 </div>
                 <div className="row">
                     <div className="col">
-                        <button type="submit" className="btn btn-success">
+                        <button type="submit" className="btn btn-sm btn-success">
                             <Icon name="plus-circle" />
                             เพิ่ม
                         </button>

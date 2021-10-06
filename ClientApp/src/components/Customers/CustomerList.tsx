@@ -53,7 +53,7 @@ export default () => {
                     onChange={onChangeFilter}
                     placeholder="ค้นหาลูกค้าโดยใส่ชื่อลูกค้า/ที่อยู่/เลขประจำตัวผู้เสียภาษีอากร..."
                 />
-                <button className="btn btn-outline-secondary" type="button" disabled={!filter} onClick={onClickResetFilter}>
+                <button className="btn btn-sm btn-outline-secondary" type="button" disabled={!filter} onClick={onClickResetFilter}>
                     <Icon name="x-lg" />
                     รีเซ็ต
                 </button>
