@@ -5,13 +5,15 @@ import { Payment } from "../../hooks/SystemData";
 import { CustomerModel } from "../../store/CustomerStore";
 import Icon from "../../util/Icon";
 import ReceiptBody from "./ReceiptBody"
+import { ReceiptBodyItemModel } from "./ReceiptBodyItem";
 import ReceiptFooter from "./ReceiptFooter"
 import ReceiptHeader, { ReceiptHeaderModel } from "./ReceiptHeader"
 
 const defaultDate = format(Date.now(), "dd-MM-yy", { locale: th });
 
 interface ReceiptMainState {
-    receiptHeaderModel: ReceiptHeaderModel
+    receiptHeaderModel: ReceiptHeaderModel,
+    receiptBodyModel: ReceiptBodyItemModel[]
 }
 
 export default () => {
@@ -22,7 +24,8 @@ export default () => {
             receiptNumber: "",
             customerModel: null,
             paymentModel: null
-        }
+        },
+        receiptBodyModel: []
     });
 
     function onChangeDropDown<TModel>(modelName: "customerModel" | "paymentModel") {
@@ -49,6 +52,16 @@ export default () => {
         })
     }
 
+    function onAddReceiptBodyItem(item: ReceiptBodyItemModel) {
+        setReceiptModel({
+            ...receiptModel,
+            receiptBodyModel: [
+                { ...item },
+                ...receiptModel.receiptBodyModel
+            ]
+        })
+    }
+
     return (
         <>
             <div className="card border-primary">
@@ -67,7 +80,7 @@ export default () => {
                         {...receiptModel.receiptHeaderModel}
                     />
                     <hr />
-                    <ReceiptBody />
+                    <ReceiptBody receiptBodyItems={receiptModel.receiptBodyModel} onAddItem={onAddReceiptBodyItem} />
 
                 </div>
                 <div className="card-footer">
