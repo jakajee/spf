@@ -6,6 +6,7 @@ using System;
 using System.IO;
 using System.Linq;
 using GreatFriends.ThaiBahtText;
+using System.Globalization;
 
 namespace SPF_Receipt.Controllers
 {
@@ -14,7 +15,7 @@ namespace SPF_Receipt.Controllers
     public class ReceiptController : ControllerBase
     {
         [HttpPost]
-        public FileContentResult DownloadTaxInvoice(ReceiptRequestModel request) => DownloadReport(request);
+        public FileContentResult DownloadTaxInvoice(ReceiptRequestModel request) => DownloadReport(request);        
 
         [HttpPost]
         public FileContentResult DownloadReceipt(ReceiptRequestModel request) => DownloadReport(request, "Receipt");
@@ -37,9 +38,13 @@ namespace SPF_Receipt.Controllers
                 content = memoryStream.ToArray();
             }
 
+            var fileName = $"{reportName}_{DateTime.Now.ToString("yyyyMMdd_HHmm")}.pdf";
+
+            Response.Headers.Add("X-File-Name", fileName);
+
             return new FileContentResult(content, "application/pdf")
             {
-                FileDownloadName = $"{reportName}_{DateTime.Now.ToString("yyyyMMdd_HHmm")}.pdf"
+                FileDownloadName = fileName
             };
         }
 
@@ -57,9 +62,9 @@ namespace SPF_Receipt.Controllers
             report.SetParameterValue("Address2", request.Customer.Address2);
             report.SetParameterValue("TaxNumber", request.Customer.TaxNumber);
             report.SetParameterValue("ReceiptNumber", reportModel.ReportHeader.ReceiptNumber);
-            report.SetParameterValue("ReceiptDate", reportModel.ReportHeader.ReceiptDateString);
+            report.SetParameterValue("ReceiptDate", reportModel.ReportHeader.ReceiptDate.ToThaiDate());
             report.SetParameterValue("Payment", reportModel.ReportHeader.Payment);
-            report.SetParameterValue("DueDate", reportModel.ReportHeader.DueDateString);
+            report.SetParameterValue("DueDate", reportModel.ReportHeader.DueDate.ToThaiDate());
 
             // body
             report.RegisterData(reportModel.ReportBody.ToList(), "ProductList");
@@ -83,7 +88,7 @@ namespace SPF_Receipt.Controllers
             for (int i = 0; i < request.ProductList.Count() && request.ProductList.Count() < 28; i++)
             {
                 var requestProduct = request.ProductList.ElementAt(i);
-                var reportProduct = data[0];
+                var reportProduct = data[i];
 
                 reportProduct.ProductName = requestProduct.ProductName;
                 reportProduct.UnitName = requestProduct.UnitName;
@@ -91,6 +96,7 @@ namespace SPF_Receipt.Controllers
                 reportProduct.Price = string.Format("{0:N2}", requestProduct.Price); // need to add .- or not
                 reportProduct.TotalPrice = string.Format("{0:N2}", requestProduct.TotalPrice); // need to add .- or not
             }
+            reportModel.ReportBody = data;
 
             // footer
             reportModel.ReportFooter = new ReportFooterModelExtend
@@ -102,6 +108,17 @@ namespace SPF_Receipt.Controllers
             };
 
             return reportModel;
+        }
+
+        
+    }
+
+    public static class DateTimeExtension
+    {
+        private static CultureInfo CultureInfo = new CultureInfo("th-TH");
+        public static string ToThaiDate(this DateTime src)
+        {
+            return src.ToString("dd-MM-yy", CultureInfo);
         }
     }
 }

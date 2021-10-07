@@ -29,6 +29,7 @@ namespace SPF_Receipt
                 .AddJsonOptions(opt =>
                 {
                     opt.JsonSerializerOptions.Converters.Add(new GuidConverter());
+                    opt.JsonSerializerOptions.Converters.Add(new DateTimeConverter());
                 });
 
             // In production, the React files will be served from this directory

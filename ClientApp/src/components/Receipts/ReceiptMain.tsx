@@ -1,19 +1,22 @@
 import format from "date-fns/format";
-import th from "date-fns/locale/th";
+import _ from "lodash";
 import { useState } from "react";
 import { Payment } from "../../hooks/SystemData";
 import { CustomerModel } from "../../store/CustomerStore";
+import { printReceipt } from "../../store/ReceiptStore";
+import { DATE_FORMAT } from "../../util/Format";
 import Icon from "../../util/Icon";
 import ReceiptBody from "./ReceiptBody"
 import { ReceiptBodyItemModel } from "./ReceiptBodyItem";
-import ReceiptFooter from "./ReceiptFooter"
+import ReceiptFooter, { ReceiptFooterModel } from "./ReceiptFooter"
 import ReceiptHeader, { ReceiptHeaderModel } from "./ReceiptHeader"
 
-const defaultDate = format(Date.now(), "dd-MM-yy", { locale: th });
+const defaultDate = format(Date.now(), DATE_FORMAT);
 
-interface ReceiptMainState {
+export interface ReceiptMainState {
     receiptHeaderModel: ReceiptHeaderModel,
-    receiptBodyModel: ReceiptBodyItemModel[]
+    receiptBodyModel: ReceiptBodyItemModel[],
+    receiptFooterModel: ReceiptFooterModel
 }
 
 export default () => {
@@ -25,7 +28,12 @@ export default () => {
             customerModel: null,
             paymentModel: null
         },
-        receiptBodyModel: []
+        receiptBodyModel: [],
+        receiptFooterModel: {
+            grandTotal: 0,
+            total: 0,
+            vat: 0
+        }
     });
 
     function onChangeDropDown<TModel>(modelName: "customerModel" | "paymentModel") {
@@ -53,13 +61,38 @@ export default () => {
     }
 
     function onAddReceiptBodyItem(item: ReceiptBodyItemModel) {
+        const receiptBodyModel = [
+            { ...item },
+            ...receiptModel.receiptBodyModel
+        ];
+
+        updateReceiptBodyItem(receiptBodyModel);
+    }
+
+    function onRemoveBodyItem(id: string) {
+        const receiptBodyItems = receiptModel.receiptBodyModel.filter(e => e.id !== id);
+        updateReceiptBodyItem(receiptBodyItems);
+    }
+
+    function updateReceiptBodyItem(receiptBodyModel: ReceiptBodyItemModel[]) {
+        const receiptFooterModel = calculateTotal(receiptBodyModel)
+
         setReceiptModel({
             ...receiptModel,
-            receiptBodyModel: [
-                { ...item },
-                ...receiptModel.receiptBodyModel
-            ]
+            receiptBodyModel,
+            receiptFooterModel
         })
+    }
+
+    function calculateTotal(receiptItems: ReceiptBodyItemModel[]): ReceiptFooterModel {
+        const total = _.sumBy(receiptItems, "total");
+        const vat = total * 0.07
+        const grandTotal = (total + vat);
+        return { total, vat, grandTotal }
+    }
+
+    function onClickPrint() {
+        printReceipt(receiptModel);
     }
 
     return (
@@ -67,7 +100,7 @@ export default () => {
             <div className="card border-primary">
                 <div className="card-header bg-primary border-primary text-white d-flex justify-content-between">
                     <span style={{ lineHeight: "2.3" }}>แบบฟอร์มข้อมูลใบกำกับภาษี/ใบเสร็จรับเงิน</span>
-                    <button type="button" className="btn btn-sm btn-secondary text-white">
+                    <button type="button" className="btn btn-sm btn-secondary text-white" onClick={onClickPrint}>
                         <Icon name="printer" marginRight={0} />
                     </button>
                 </div>
@@ -80,14 +113,15 @@ export default () => {
                         {...receiptModel.receiptHeaderModel}
                     />
                     <hr />
-                    <ReceiptBody receiptBodyItems={receiptModel.receiptBodyModel} onAddItem={onAddReceiptBodyItem} />
+                    <ReceiptBody 
+                        receiptBodyItems={receiptModel.receiptBodyModel} 
+                        onAddItem={onAddReceiptBodyItem}
+                        onRemoveItem={onRemoveBodyItem}
+                    />
 
                 </div>
                 <div className="card-footer">
-                    <code>
-                        {JSON.stringify(receiptModel)}
-                    </code>
-                    <ReceiptFooter />
+                    <ReceiptFooter {...receiptModel.receiptFooterModel} />
                 </div>
 
             </div>

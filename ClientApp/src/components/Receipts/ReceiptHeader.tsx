@@ -1,17 +1,14 @@
 import Select from "react-select";
-import DatePicker, { registerLocale, setDefaultLocale } from "react-datepicker";
+import DatePicker from "react-datepicker";
 import { format } from "date-fns";
 import { Option } from "../../hooks/BaseModel";
 import { useCustomerList } from "../../hooks/MasterData";
 import { Payment, useDropdownPayments } from "../../hooks/SystemData";
 import { CustomerModel } from "../../store/CustomerStore";
-import { th } from "date-fns/locale";
 import "react-datepicker/dist/react-datepicker.css";
-import React from "react";
+import { DATE_FORMAT } from "../../util/Format";
 
-registerLocale('th', th);
-
-const formatDate = "dd-MM-yy";
+const formatDate = DATE_FORMAT;
 
 export interface ReceiptHeaderModel {
     receiptNumber: string,
@@ -85,10 +82,9 @@ export default (props: ReceiptHeaderProps) => {
                             <label className="form-label required">วันที่</label>
                             <DatePicker
                                 dateFormat={formatDate}
-                                locale={th}
                                 className="form-control form-control-sm"
                                 value={props.receiptDate}
-                                onChange={(date: Date) => props.onChangeModelValue("receiptDate", format(date, formatDate, { locale: th }))}
+                                onChange={(date: Date) => props.onChangeModelValue("receiptDate", format(date, formatDate))}
                             />
                         </div>
                     </div>
@@ -103,9 +99,8 @@ export default (props: ReceiptHeaderProps) => {
                             <DatePicker
                                 dateFormat="dd-MM-yy"
                                 className="form-control form-control-sm"
-                                locale={th}
                                 value={props.dueDate}
-                                onChange={(date: Date) => props.onChangeModelValue("dueDate", format(date, formatDate, { locale: th }))}
+                                onChange={(date: Date) => props.onChangeModelValue("dueDate", format(date, formatDate))}
                             />
                         </div>
                     </div>

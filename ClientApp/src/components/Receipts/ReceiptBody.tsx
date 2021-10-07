@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import { BaseOptionReadonly } from "../../hooks/BaseModel";
 import { useProductList } from "../../hooks/MasterData";
 import Icon from "../../util/Icon";
 import ReceiptBodyItem, { ReceiptBodyItemModel } from "./ReceiptBodyItem";
 
-
 interface ReceiptBodyProps {
     receiptBodyItems: ReceiptBodyItemModel[],
-    onAddItem: (newItem: ReceiptBodyItemModel) => void
+    onAddItem: (newItem: ReceiptBodyItemModel) => void,
+    onRemoveItem: (itemId: string) => void
 }
 
 const defaultTransaction: ReceiptBodyItemModel = {
@@ -30,9 +30,23 @@ export default (props: ReceiptBodyProps) => {
     });
 
     const [transaction, setTransaction] = useState<ReceiptBodyItemModel>(defaultTransaction)
+    const { qty, price } = transaction;
+
+    useEffect(() => {
+        if (qty > 0 && price > 0) {
+            setTransaction({
+                ...transaction,
+                total: qty * price
+            })
+        }
+    }, [qty, price])
 
     function onSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
+        if (isInvalid()) {
+            alert("กรอกข้อมูลไม่ครบ");
+            return;
+        }
         props.onAddItem(transaction);
         setTransaction({ ...defaultTransaction })
     }
@@ -52,7 +66,18 @@ export default (props: ReceiptBodyProps) => {
         });
     }
 
-    const receiptBodyItems = props.receiptBodyItems.map((item, idx) => <ReceiptBodyItem {...item} idx={idx + 1} />)
+    function isInvalid() {
+        return [
+            !!transaction.id,
+            !!transaction.name,
+            !!price,
+            !!qty,
+            !!transaction.total,
+            !!transaction.unit
+        ].indexOf(false) > -1
+    }
+
+    const receiptBodyItems = props.receiptBodyItems.map((item, idx) => <ReceiptBodyItem key={idx} {...item} idx={idx + 1} onRemoveProduct={props.onRemoveItem} />)
     return <>
         <fieldset className="mb-2">
             <legend>รายการสินค้า</legend>
@@ -60,15 +85,13 @@ export default (props: ReceiptBodyProps) => {
                 <div className="row mb-2">
                     <div className="col-6">
                         <label className="form-label required">สินค้า</label>
-                        <Select options={productsOptions} defaultValue={productsOptions[0]}
-                            onChange={(newValue) => setProduct(newValue?.value)}
-                        />
+                        <Select options={productsOptions} onChange={(newValue) => setProduct(newValue?.value)} />
                     </div>
                     <div className="col-2">
                         <label className="form-label required">จำนวน</label>
                         <div className="input-group input-group-sm">
                             <input type="text" name="qty" className="form-control form-control-sm text-end" onChange={updateModelValue}
-                                value={transaction.qty} />
+                                value={qty} />
                             <span className="input-group-text">{transaction.unit?.name || "-"}</span>
                         </div>
                     </div>
@@ -76,7 +99,7 @@ export default (props: ReceiptBodyProps) => {
                         <label className="form-label required">ราคาต่อหน่วย</label>
                         <div className="input-group input-group-sm">
                             <input type="text" name="price" className="form-control form-control-sm text-end" onChange={updateModelValue}
-                                value={transaction.price} />
+                                value={price} />
                             <span className="input-group-text">.-</span>
                         </div>
                     </div>
@@ -90,7 +113,7 @@ export default (props: ReceiptBodyProps) => {
                 </div>
                 <div className="row">
                     <div className="col">
-                        <button type="submit" className="btn btn-sm btn-success">
+                        <button type="submit" className="btn btn-sm btn-success" disabled={isInvalid()}>
                             <Icon name="plus-circle" />
                             เพิ่ม
                         </button>

@@ -16,8 +16,8 @@ namespace SPF_Receipt.ViewModel
     public class ReportHeaderModel
     {
         public string ReceiptNumber { get; set; }
-        public string ReceiptDateString { get; set; }
-        public string DueDateString { get; set; }
+        public DateTime ReceiptDate { get; set; }
+        public DateTime DueDate { get; set; }
         public string Payment { get; set; }
     }
 

@@ -6,7 +6,14 @@ export interface ReceiptBodyItemModel extends ProductModel {
     total: number
 }
 
-export default (props: ReceiptBodyItemModel & { idx: number }) => {
+export default (props: ReceiptBodyItemModel & {
+    idx: number,
+    onRemoveProduct: (id: string) => void
+}) => {
+    function onClickRemove() {
+        props.onRemoveProduct(props.id as string);
+    }
+
     return (
         <tr>
             <td></td>
@@ -15,8 +22,8 @@ export default (props: ReceiptBodyItemModel & { idx: number }) => {
             <td className="text-end">{props.price}</td>
             <td className="text-end">{props.total}</td>
             <td className="text-center">
-                <button type="button" className="btn btn-danger btn-sm">
-                    <Icon name="x-circle" />
+                <button type="button" className="btn btn-danger btn-sm" onClick={onClickRemove}>
+                    <Icon name="x-circle" marginRight={0} />
                 </button>
             </td>
         </tr>
