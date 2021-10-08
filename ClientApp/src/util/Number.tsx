@@ -1,13 +1,13 @@
 import numeral from 'numeral';
-import { NUM_FORMAT } from './Format';
 
 type NumberValueProps = {
-    value: number | bigint
+    value: number | bigint,
+    format?: '0,0.00' | '0,0'
 }
 
-export const NumberValue = ({ value }: NumberValueProps) => {   
+export const NumberValue = ({ value, format = '0,0.00' }: NumberValueProps) => {   
 
     return <>
-        <span>{numeral(value).format(NUM_FORMAT)}</span>
+        <span>{numeral(value).format(format)}</span>
     </>;
 }
