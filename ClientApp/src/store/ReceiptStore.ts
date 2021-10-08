@@ -1,12 +1,14 @@
-import numeral from "numeral";
+import { Action } from "redux";
 import api from "../api";
 import { ReceiptMainState } from "../components/Receipts/ReceiptMain";
+import { LoadedAction, LoadingAction, UtilActions } from "./UtilStore";
+import printjs from 'print-js';
 
 type ResponseHeader = {
     [key: string]: string
 }
 
-export function printReceipt(receiptModel: ReceiptMainState) {
+export async function printReceipt(receiptModel: ReceiptMainState, dispatch: (action: Action<any>) => void) {
     var requestModel = {
         receiptHeader: {
             receiptNumber: receiptModel.receiptHeaderModel.receiptNumber,
@@ -24,18 +26,27 @@ export function printReceipt(receiptModel: ReceiptMainState) {
         })),
         receiptSummary: receiptModel.receiptFooterModel
     }
-    api({
+
+    dispatch(UtilActions.loading());
+    const response = await api({
         url: '/receipts/downloadtaxinvoice',
         method: 'post',
         responseType: 'blob',
         data: requestModel
-    }).then(response => {
-        const fileName = (response.headers as ResponseHeader)["x-file-name"];
-        const url = window.URL.createObjectURL(new Blob([response.data]));
-        const link = document.createElement('a');
-        link.href = url;
-        link.setAttribute('download', fileName);
-        document.body.appendChild(link);
-        link.click();
     });
+    
+    const fileName = (response.headers as ResponseHeader)["x-file-name"];
+    dispatch(UtilActions.loaded(`กำลังพิมพ์ ${fileName}`, "success"))
+    const url = window.URL.createObjectURL(new Blob([response.data], {
+        type: "application/pdf"
+    }));
+
+    printjs(url);
+
+    
+    // const link = document.createElement('a');
+    // link.href = url;
+    // link.setAttribute('download', fileName);
+    // document.body.appendChild(link);
+    // link.click();
 }

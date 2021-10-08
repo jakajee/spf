@@ -1,6 +1,7 @@
 import format from "date-fns/format";
 import _ from "lodash";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Payment } from "../../hooks/SystemData";
 import { CustomerModel } from "../../store/CustomerStore";
 import { printReceipt } from "../../store/ReceiptStore";
@@ -36,6 +37,8 @@ export default () => {
         }
     });
 
+    const dispatch = useDispatch();
+
     function onChangeDropDown<TModel>(modelName: "customerModel" | "paymentModel") {
         return (model: TModel) => {
             setReceiptModel({
@@ -62,8 +65,8 @@ export default () => {
 
     function onAddReceiptBodyItem(item: ReceiptBodyItemModel) {
         const receiptBodyModel = [
-            { ...item },
-            ...receiptModel.receiptBodyModel
+            ...receiptModel.receiptBodyModel,
+            { ...item }
         ];
 
         updateReceiptBodyItem(receiptBodyModel);
@@ -92,7 +95,14 @@ export default () => {
     }
 
     function onClickPrint() {
-        printReceipt(receiptModel);
+        printReceipt(receiptModel, dispatch);
+    }
+
+    function disablePrint() {
+        return !receiptModel.receiptHeaderModel.customerModel ||
+            !receiptModel.receiptBodyModel || !receiptModel.receiptBodyModel.length ||
+            !receiptModel.receiptFooterModel || 
+            !receiptModel.receiptFooterModel.grandTotal || !receiptModel.receiptFooterModel.total || !receiptModel.receiptFooterModel.vat
     }
 
     return (
@@ -100,7 +110,7 @@ export default () => {
             <div className="card border-primary">
                 <div className="card-header bg-primary border-primary text-white d-flex justify-content-between">
                     <span style={{ lineHeight: "2.3" }}>แบบฟอร์มข้อมูลใบกำกับภาษี/ใบเสร็จรับเงิน</span>
-                    <button type="button" className="btn btn-sm btn-secondary text-white" onClick={onClickPrint}>
+                    <button type="button" className="btn btn-sm btn-secondary text-white" onClick={onClickPrint} disabled={disablePrint()}>
                         <Icon name="printer" marginRight={0} />
                     </button>
                 </div>

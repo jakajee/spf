@@ -50,35 +50,7 @@ abstract class BaseStore<KnownAction, TModel> {
     public updateModel(model: TModel) {
         return this.postRequest(model, "update", this.getUpdateFailMessage());
     }
-
-    // protected createModel(model: TModel): AppThunkAction<KnownAction | LoadedAction | LoadingAction> {
-    //     return async (dispatch, getState) => {
-    //         dispatch({ type: 'LOADING' })
-    //         const response = await api.post<BaseResponse>(`${this.baseUrl}/create`, model);
-
-    //         if (response.data.isSuccess) {
-    //             dispatch({ type: 'LOADED', message: response.data.message, serverity: 'success' });
-    //             this.requestAll()(dispatch, getState);
-    //         } else {
-    //             dispatch({ type: 'LOADED', message: `${this.createFailedMsg}: ${response.data.message}`, serverity: 'warning' });
-    //         }
-    //     }
-    // }
-
-    // protected updateModel(model: TModel): AppThunkAction<KnownAction | LoadedAction | LoadingAction> {
-    //     return async (dispatch, getState) => {
-    //         dispatch({ type: 'LOADING' })
-    //         const response = await api.post<BaseResponse>(`${this.baseUrl}/update`, model);
-
-    //         if (response.data.isSuccess) {
-    //             dispatch({ type: 'LOADED', message: response.data.message, serverity: 'success' });
-    //             this.requestAll()(dispatch, getState);
-    //         } else {
-    //             dispatch({ type: 'LOADED', message: `${this.editFailedMsg}: ${response.data.message}`, serverity: 'warning' });
-    //         }
-    //     }
-    // }
-
+    
     private postRequest(model: TModel, action: string, failTitle: string): AppThunkAction<KnownAction | LoadedAction | LoadingAction> {
         return async (dispatch, getState) => {
             dispatch({ type: 'LOADING' })

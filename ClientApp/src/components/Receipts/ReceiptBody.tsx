@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Select from "react-select";
-import { BaseOptionReadonly } from "../../hooks/BaseModel";
+import Select, { SingleValue } from "react-select";
+import { Option } from "../../hooks/BaseModel";
 import { useProductList } from "../../hooks/MasterData";
 import Icon from "../../util/Icon";
 import ReceiptBodyItem, { ReceiptBodyItemModel } from "./ReceiptBodyItem";
@@ -22,7 +22,7 @@ const defaultTransaction: ReceiptBodyItemModel = {
 
 export default (props: ReceiptBodyProps) => {
     const products = useProductList();
-    const productsOptions: readonly BaseOptionReadonly<string>[] = products.map(item => {
+    const productsOptions: Option[] = products.map(item => {
         return {
             label: item.name,
             value: item.id || ""
@@ -32,6 +32,8 @@ export default (props: ReceiptBodyProps) => {
     const [transaction, setTransaction] = useState<ReceiptBodyItemModel>(defaultTransaction)
     const { qty, price } = transaction;
 
+     const [optionProduct, setSelectOptionProduct] = useState<SingleValue<Option>>(null);
+
     useEffect(() => {
         if (qty > 0 && price > 0) {
             setTransaction({
@@ -39,7 +41,11 @@ export default (props: ReceiptBodyProps) => {
                 total: qty * price
             })
         }
-    }, [qty, price])
+    }, [qty, price]);
+
+    useEffect(() => {
+        setProduct(optionProduct?.value as string);
+    }, [optionProduct])
 
     function onSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -48,7 +54,8 @@ export default (props: ReceiptBodyProps) => {
             return;
         }
         props.onAddItem(transaction);
-        setTransaction({ ...defaultTransaction })
+        setTransaction({ ...defaultTransaction });
+        setSelectOptionProduct(null);
     }
 
     function updateModelValue(e: React.FocusEvent<HTMLInputElement>) {
@@ -85,7 +92,11 @@ export default (props: ReceiptBodyProps) => {
                 <div className="row mb-2">
                     <div className="col-6">
                         <label className="form-label required">สินค้า</label>
-                        <Select options={productsOptions} onChange={(newValue) => setProduct(newValue?.value)} />
+                        <Select 
+                            options={productsOptions} 
+                            onChange={(newValue) => setSelectOptionProduct(newValue)} 
+                            value={optionProduct}
+                        />
                     </div>
                     <div className="col-2">
                         <label className="form-label required">จำนวน</label>
