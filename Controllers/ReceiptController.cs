@@ -7,6 +7,8 @@ using System.IO;
 using System.Linq;
 using GreatFriends.ThaiBahtText;
 using System.Globalization;
+using PdfSharp.Pdf;
+using PdfSharp.Pdf.IO;
 
 namespace SPF_Receipt.Controllers
 {
@@ -15,30 +17,13 @@ namespace SPF_Receipt.Controllers
     public class ReceiptController : ControllerBase
     {
         [HttpPost]
-        public FileContentResult DownloadTaxInvoice(ReceiptRequestModel request) => DownloadReport(request);        
-
-        [HttpPost]
-        public FileContentResult DownloadReceipt(ReceiptRequestModel request) => DownloadReport(request, "Receipt");
-
-        private FileContentResult DownloadReport(ReceiptRequestModel request, string reportName = "TaxInvoice", string headerTitle3 = "ต้นฉบับ")
+        public FileContentResult DownloadTaxInvoice(ReceiptRequestModel request)
         {
-            byte[] content;
-            using (var memoryStream = new MemoryStream())
-            {
-                var report = new Report();
-                var buildPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-
-                report.Load($"{buildPath}/Reports/{reportName}.frx");
-                SetReportData(request, report, headerTitle3);
-
-                report.Prepare();
-
-                var pdfExport = new PDFSimpleExport();
-                pdfExport.Export(report, memoryStream);                
-                content = memoryStream.ToArray();
-            }
-
-            var fileName = $"{reportName}_{DateTime.Now.ToString("yyyyMMdd_HHmm")}.pdf";
+            var fileName = GetReportFileName();
+            var reportOrginal = GetReport(request);
+            var reportCopy = GetReport(request, headerTitle3: "สำเนา", notTaxText: "ไม่ใช่ใบกำกับภาษี");
+            var reportCopy2 = GetReport(request, headerTitle3: "สำเนา", notTaxText: "ไม่ใช่ใบกำกับภาษี");
+            var content = MergePdf(reportOrginal, reportCopy, reportCopy2);
 
             Response.Headers.Add("X-File-Name", fileName);
 
@@ -48,15 +33,63 @@ namespace SPF_Receipt.Controllers
             };
         }
 
-        private void SetReportData(ReceiptRequestModel request, Report report, string headerTitle3 = "ต้นฉบับ")
+        private string GetReportFileName(string reportName = "Taxinvoice") => $"{reportName}_{DateTime.Now.ToString("yyyyMMdd_HHmm")}.pdf";
+
+        private byte[] MergePdf(params byte[][] srcPDFs)
+        {
+            using (var ms = new MemoryStream())
+            {
+                using (var resultPDF = new PdfDocument(ms))
+                {
+                    foreach (var pdf in srcPDFs)
+                    {
+                        using (var src = new MemoryStream(pdf))
+                        {
+                            using (var srcPDF = PdfReader.Open(src, PdfDocumentOpenMode.Import))
+                            {
+                                for (var i = 0; i < srcPDF.PageCount; i++)
+                                {
+                                    resultPDF.AddPage(srcPDF.Pages[i]);
+                                }
+                            }
+                        }
+                    }
+                    resultPDF.Save(ms);
+                    return ms.ToArray();
+                }
+            }
+        }
+
+        private byte[] GetReport(ReceiptRequestModel request, string reportName = "TaxInvoice", string headerTitle3 = "ต้นฉบับ", string notTaxText = "")
+        {
+            byte[] content;
+            using (var memoryStream = new MemoryStream())
+            {
+                var report = new Report();
+                var buildPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+
+                report.Load($"{buildPath}/Reports/{reportName}.frx");
+                SetReportData(request, report, headerTitle3, notTaxText);
+
+                report.Prepare();
+
+                var pdfExport = new PDFSimpleExport();
+                pdfExport.Export(report, memoryStream);
+                content = memoryStream.ToArray();
+            }
+
+            return content;
+        }
+
+        private void SetReportData(ReceiptRequestModel request, Report report, string headerTitle3 = "ต้นฉบับ", string notTaxInvText = "")
         {
             var reportModel = GetReportModel(request);
 
             // header
-            report.SetParameterValue("NotTaxInvoiceText", "");
+            report.SetParameterValue("NotTaxInvoiceText", notTaxInvText);
             report.SetParameterValue("HeaderTitle1", "ใบกำกับภาษี/ใบส่งสินค้า");
             report.SetParameterValue("HeaderTitle2", "TAX INVOICE / INVOICE");
-            report.SetParameterValue("HeaderTitle3", "ต้นฉบับ");
+            report.SetParameterValue("HeaderTitle3", headerTitle3);
             report.SetParameterValue("CustomerName", request.Customer.FullName);
             report.SetParameterValue("Address1", request.Customer.Address1);
             report.SetParameterValue("Address2", request.Customer.Address2);
@@ -110,7 +143,7 @@ namespace SPF_Receipt.Controllers
             return reportModel;
         }
 
-        
+
     }
 
     public static class DateTimeExtension

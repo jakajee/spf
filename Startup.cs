@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using SPF_Receipt.App_Config;
 using SPF_Receipt.Converters;
 using System;
+using System.Text;
 using System.Text.Json.Serialization;
 
 namespace SPF_Receipt
@@ -40,11 +41,15 @@ namespace SPF_Receipt
 
             ServiceConfig.Configure(services);
             DataInitializer.Init();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            var encodings = CodePagesEncodingProvider.Instance.GetEncodings();
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
