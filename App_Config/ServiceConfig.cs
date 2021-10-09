@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using SPF_Receipt.DataAccess;
+using SPF_Receipt.Reports.Manager;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,8 @@ namespace SPF_Receipt.App_Config
             services.AddTransient<IPaymentRepository, PaymentRepository>();
             services.AddTransient<ICustomerRepository, CustomerRepository>();
             services.AddTransient<IUnitRepository, UnitRepository>();
+
+            services.AddScoped<IReportManager, ReportManager>();
         }
     }
 }

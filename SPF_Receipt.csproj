@@ -28,6 +28,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Reports\Receipt.frx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Reports\ReceiptReport.frx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
