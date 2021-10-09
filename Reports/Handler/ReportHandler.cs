@@ -1,15 +1,11 @@
 ﻿using FastReport;
 using FastReport.Export.PdfSimple;
 using GreatFriends.ThaiBahtText;
-using PdfSharp.Pdf;
-using PdfSharp.Pdf.IO;
 using SPF_Receipt.ViewModel;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace SPF_Receipt.Reports.Handler
 {
@@ -32,7 +28,7 @@ namespace SPF_Receipt.Reports.Handler
             using (var memoryStream = new MemoryStream())
             {
                 var report = new Report();
-                var buildPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+                var buildPath = AppContext.BaseDirectory;
 
                 report.Load($"{buildPath}/Reports/{ReportName}.frx");
                 SetReportData(request, report);
