@@ -5,6 +5,7 @@ import { Option } from "../../hooks/BaseModel";
 import { useDropdownUnits } from "../../hooks/SystemData";
 import { ApplicationState } from "../../store";
 import { ProductActions, ProductModel } from "../../store/ProductsStore";
+import { ReactSelectStyleFormat } from "../../util/Format";
 import Icon from "../../util/Icon";
 
 function getInitialForm(): ProductModel {
@@ -98,7 +99,7 @@ function ProductForm() {
                         </div>
                         <div className="col">
                             <label className="form-label required">หน่วย</label>
-                            <Select options={units} onChange={onUnitChange} value={unitValue} />
+                            <Select options={units} onChange={onUnitChange} value={unitValue} styles={ReactSelectStyleFormat} />
                         </div>
                     </div>
                     <div className="row">

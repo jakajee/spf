@@ -1,4 +1,4 @@
-import Select from "react-select";
+import Select, { GroupBase, StylesConfig } from "react-select";
 import DatePicker from "react-datepicker";
 import { format } from "date-fns";
 import { Option } from "../../hooks/BaseModel";
@@ -6,7 +6,7 @@ import { useCustomerList } from "../../hooks/MasterData";
 import { Payment, useDropdownPayments } from "../../hooks/SystemData";
 import { CustomerModel } from "../../store/CustomerStore";
 import "react-datepicker/dist/react-datepicker.css";
-import { DATE_FORMAT } from "../../util/Format";
+import { DATE_FORMAT, ReactSelectStyleFormat } from "../../util/Format";
 
 const formatDate = DATE_FORMAT;
 
@@ -58,6 +58,7 @@ export default (props: ReceiptHeaderProps) => {
                             <Select
                                 options={customerDs}
                                 onChange={(newVal) => props.onChangeCustomer(getCustomerById(newVal?.value as string))}
+                                styles={ReactSelectStyleFormat}
                             />
                             {customer && <>
                                 <input type="text" className="form-control form-control-sm" value={customer.address1} readOnly />
@@ -92,7 +93,9 @@ export default (props: ReceiptHeaderProps) => {
                     <div className="row">
                         <div className="col">
                             <label className="form-label required">กำหนดชำระเงิน</label>
-                            <Select options={payments} onChange={(newVal) => props.onChangePayment(getPaymentById(newVal?.value))} />
+                            <Select options={payments} onChange={(newVal) => props.onChangePayment(getPaymentById(newVal?.value))}
+                                styles={ReactSelectStyleFormat}
+                            />
                         </div>
                         <div className="col">
                             <label className="form-label required">วันครบกำหนด</label>

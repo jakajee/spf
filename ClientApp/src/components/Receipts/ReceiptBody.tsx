@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Select, { SingleValue } from "react-select";
 import { Option } from "../../hooks/BaseModel";
 import { useProductList } from "../../hooks/MasterData";
+import { ReactSelectStyleFormat } from "../../util/Format";
 import Icon from "../../util/Icon";
 import ReceiptBodyItem, { ReceiptBodyItemModel } from "./ReceiptBodyItem";
 
@@ -96,6 +97,7 @@ export default (props: ReceiptBodyProps) => {
                             options={productsOptions} 
                             onChange={(newValue) => setSelectOptionProduct(newValue)} 
                             value={optionProduct}
+                            styles={ReactSelectStyleFormat}
                         />
                     </div>
                     <div className="col-2">
