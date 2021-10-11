@@ -31,7 +31,7 @@ export default () => {
                         <div className="col">
                             <div className="card">
                                 <div className="card-header bg-secondary">
-                                    <h4 className="m-0"><Icon name={item.headerIcon} />{item.headerTitle}</h4>
+                                    <h4 className="m-0 text-primary"><Icon name={item.headerIcon} />{item.headerTitle}</h4>
                                 </div>
                                 <div className="card-body">
                                     <p className="card-text">{item.bodyDetail}</p>

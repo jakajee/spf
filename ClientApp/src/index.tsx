@@ -1,4 +1,6 @@
-import 'bootstrap/dist/css/bootstrap.css';
+import '../node_modules/bootswatch/dist/flatly/bootstrap.min.css';
+import '../node_modules/bootstrap-icons/font/bootstrap-icons.css'
+import './custom.css';
 
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
