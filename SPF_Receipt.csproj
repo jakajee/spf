@@ -10,7 +10,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AspNetCore.Reporting" Version="2.1.0" />
     <PackageReference Include="FastReport.OpenSource" Version="2021.4.6" />
     <PackageReference Include="FastReport.OpenSource.Export.PdfSimple" Version="2021.4.0" />
     <PackageReference Include="LiteDB" Version="5.0.11" />
