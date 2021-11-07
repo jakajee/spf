@@ -76,13 +76,14 @@ namespace SPF_Receipt.Reports.Handler
         private ReportModel GetReportModel(ReceiptRequestModel request)
         {
             var reportModel = new ReportModel();
+            var recordCount = 14;
 
             // header
             reportModel.ReportHeader = request.ReceiptHeader;
 
             // body
-            var data = Enumerable.Range(1, 28).Select(e => new ReportDataModel<string, string>()).ToList();
-            for (int i = 0; i < request.ProductList.Count() && request.ProductList.Count() < 28; i++)
+            var data = Enumerable.Range(1, recordCount).Select(e => new ReportDataModel<string, string>()).ToList();
+            for (int i = 0; i < request.ProductList.Count() && request.ProductList.Count() < recordCount; i++)
             {
                 var requestProduct = request.ProductList.ElementAt(i);
                 var reportProduct = data[i];
