@@ -18,14 +18,9 @@ export interface SelectProductAction {
 
 export type ProductCombinedAction = RequestProductAction | ResponseProductAction | SelectProductAction;
 
-class ProductAction extends BaseAction<ProductCombinedAction, ProductModel> {   
+class ProductAction extends BaseAction<ProductCombinedAction, ProductModel> {
+    protected entityName: string = "สินค้า";    
 
-    protected getCreateFailMessage(): string {
-        return "เพิ่มข้อมูลสินค้าล้มเหลว"
-    }
-    protected getUpdateFailMessage(): string {
-        return "แก้ไขข้อมูลสินค้าล้มเหลว"
-    }    
     protected getRequestAllAction(): ProductCombinedAction {        
         return {
             type: 'REQ_PRODUCT'
