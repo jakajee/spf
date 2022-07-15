@@ -33,7 +33,8 @@ class NavMenu extends React.PureComponent<{ history?: History }, { isOpen: boole
             "/home": "หน้าหลัก",
             "/receipts": "ใบกำกับภาษี/ใบเสร็จ",
             "/customers": "ลูกค้า",
-            "/products": "สินค้า"
+            "/products": "สินค้า",
+            "/units" :"หน่วย"
         };
 
         const linkItems = [];

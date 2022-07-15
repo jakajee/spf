@@ -22,7 +22,7 @@ namespace SPF_Receipt.DataAccess.Base
         public TObject FindOne(object id)
             => InitConnection(table => table.FindById(new BsonValue(id)));
 
-        public void Insert(params TObject[] entity)
+        public virtual void Insert(params TObject[] entity)
             => InitConnection(table => table.Insert(entity));
 
         public void Update(params TObject[] entity)

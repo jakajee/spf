@@ -2,7 +2,7 @@ import { Reducer } from "redux";
 import { BaseDropdown } from "../hooks/BaseModel";
 import UnitAction, { UnitCombinedAction } from "./factory/UnitAction";
 
-export interface UnitModel extends BaseDropdown { }
+export type UnitModel = BaseDropdown;
 
 export interface UnitState {
     units: UnitModel[],
@@ -13,7 +13,7 @@ export interface UnitState {
 export const UnitActions = {
     getAllUnits: () => UnitAction.requestAll(),
     selectUnit: (unit: UnitModel) => UnitAction.selectedModel(unit),
-    deleteUnit: (id: string | null) => UnitAction.deleteModel(id),
+    deleteUnit: (id: number | null) => UnitAction.deleteModel(id),
     createUnit: (unit: UnitModel) => UnitAction.createModel(unit),
     updateUnit: (unit: UnitModel) => UnitAction.updateModel(unit)
 }

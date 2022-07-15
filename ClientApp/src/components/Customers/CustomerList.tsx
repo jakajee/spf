@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux"
 import { ApplicationState } from "../../store"
 import Icon from "../../util/Icon";
+import SimpleTable from "../../util/SimpleTable";
 import CustomerListItem from "./CustomerListItem";
 
 export default () => {
@@ -58,8 +59,8 @@ export default () => {
                     รีเซ็ต
                 </button>
             </div>
-            <table className="table table-bordered table-sm table-hover">
-                <thead className="table-primary">
+            <SimpleTable.Table>
+                <SimpleTable.THead>
                     <tr>
                         <th></th>
                         <th>ชื่อลูกค้า</th>
@@ -67,11 +68,11 @@ export default () => {
                         <th>เลขประจำตัวผู้เสียภาษีอากร</th>
                         <th></th>
                     </tr>
-                </thead>
-                <tbody>
+                </SimpleTable.THead>
+                <SimpleTable.TBody>
                     {customerItems}
-                </tbody>
-            </table>
+                </SimpleTable.TBody>
+            </SimpleTable.Table>
         </>
     )
 }

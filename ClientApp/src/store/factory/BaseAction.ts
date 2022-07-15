@@ -3,6 +3,8 @@ import { AppThunkAction } from "..";
 import api, { BaseResponse } from "../../api";
 import { LoadedAction, LoadingAction } from "../UtilStore";
 
+type ID = string | number | null;
+
 abstract class BaseStore<KnownAction, TModel> {
 
     constructor(protected baseUrl: string) {
@@ -31,7 +33,7 @@ abstract class BaseStore<KnownAction, TModel> {
         return this.getSelectModelAction(selectedModel);
     }    
 
-    public deleteModel(id: string | null): AppThunkAction<KnownAction | LoadedAction | LoadingAction> {
+    public deleteModel(id: ID): AppThunkAction<KnownAction | LoadedAction | LoadingAction> {
         return async (dispatch, getState) => {
             dispatch({ type: 'LOADING' })
             const response = await api.post<BaseResponse>(`${this.baseUrl}/delete?id=${id}`);
