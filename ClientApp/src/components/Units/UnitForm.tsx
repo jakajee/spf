@@ -48,7 +48,7 @@ function UnitForm() {
 
             <div className="row mb-3">
                 <div className="col">
-                    <SimpleLabel required title="ชื่อหน่วย (เช่น กิโลกรม กรัม)"  />
+                    <SimpleLabel required title="ชื่อหน่วย (เช่น กิโลกรัม กรัม)"  />
                     <input 
                         type="text"
                         name="name"
