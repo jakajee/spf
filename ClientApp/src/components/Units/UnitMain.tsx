@@ -4,9 +4,7 @@ import { UnitActions } from "../../store/UnitStore";
 import UnitForm from "./UnitForm";
 import UnitList from "./UnitList";
 
-type UnitMainProps = typeof UnitActions
-
-function UnitMain(props: UnitMainProps) {
+function UnitMain() {
     const dispatch = useDispatch();
 
     useEffect(() => {

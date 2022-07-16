@@ -39,7 +39,7 @@ function UnitForm() {
     return <>
         <form className="mb-3" onSubmit={onSubmit}>
             <fieldset>
-                <legend>{unitModel.id ? "แก้ไขหน่วย": "เพิ่มหน่วย"}</legend>
+                <legend>{unitModel.id !== -1 ? "แก้ไขหน่วย": "เพิ่มหน่วย"}</legend>
             </fieldset>
 
             <div className="row mb-3">
