@@ -34,10 +34,14 @@ function UnitForm() {
         }
     }
 
+    const onReset = () => {
+        dispatch(UnitActions.selectUnit(getInitialForm()));
+    }
+
     const invalidForm = !unitModel.name;
 
     return <>
-        <form className="mb-3" onSubmit={onSubmit}>
+        <form className="mb-3" onSubmit={onSubmit} onReset={onReset}>
             <fieldset>
                 <legend>{unitModel.id !== -1 ? "แก้ไขหน่วย": "เพิ่มหน่วย"}</legend>
             </fieldset>
@@ -59,6 +63,9 @@ function UnitForm() {
                 <div className="col">
                     <button type="submit" className="btn btn-sm btn-success me-2" disabled={invalidForm}>
                         <IconWithText name="check-circle" label="บันทึก" />
+                    </button>
+                    <button type="reset" className="btn btn-sm btn-secondary">
+                        <IconWithText name="arrow-counterclockwise" label="เคลียร์" />
                     </button>
                 </div>
             </div>
