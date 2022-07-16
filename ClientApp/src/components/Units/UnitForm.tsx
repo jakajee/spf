@@ -6,7 +6,7 @@ import SimpleLabel from "../../util/SimpleLabel";
 
 function getInitialForm(): UnitModel {
     return {
-        id: null,
+        id: -1,
         name: ''
     }
 }
@@ -25,10 +25,19 @@ function UnitForm() {
         )
     }
 
+    const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        if (unitModel.id === -1) {
+            dispatch(UnitActions.createUnit(unitModel));
+        } else {
+            dispatch(UnitActions.updateUnit(unitModel));
+        }
+    }
+
     const invalidForm = !unitModel.name;
 
     return <>
-        <form className="mb-3">
+        <form className="mb-3" onSubmit={onSubmit}>
             <fieldset>
                 <legend>{unitModel.id ? "แก้ไขหน่วย": "เพิ่มหน่วย"}</legend>
             </fieldset>
