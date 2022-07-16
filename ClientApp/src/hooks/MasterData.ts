@@ -3,7 +3,6 @@ import api from '../api';
 import { CustomerModel } from '../store/CustomerStore';
 import { ProductModel } from '../store/ProductsStore';
 
-
 function getMasterData<TModel>(controller: string) {
     const [datas, setDatas] = useState<TModel[]>([]);
     useEffect(() => {

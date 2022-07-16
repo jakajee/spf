@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
 
 namespace SPF_Receipt.DataAccess.Base
 {
@@ -22,7 +21,7 @@ namespace SPF_Receipt.DataAccess.Base
         public TObject FindOne(object id)
             => InitConnection(table => table.FindById(new BsonValue(id)));
 
-        public void Insert(params TObject[] entity)
+        public virtual void Insert(params TObject[] entity)
             => InitConnection(table => table.Insert(entity));
 
         public void Update(params TObject[] entity)

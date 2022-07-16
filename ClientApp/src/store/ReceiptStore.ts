@@ -1,7 +1,7 @@
 import { Action } from "redux";
 import api from "../api";
 import { ReceiptMainState } from "../components/Receipts/ReceiptMain";
-import { LoadedAction, LoadingAction, UtilActions } from "./UtilStore";
+import { UtilActions } from "./UtilStore";
 import printjs from 'print-js';
 
 type ResponseHeader = {
@@ -42,11 +42,4 @@ export async function printReceipt(receiptModel: ReceiptMainState, dispatch: (ac
     }));
 
     printjs(url);
-
-    
-    // const link = document.createElement('a');
-    // link.href = url;
-    // link.setAttribute('download', fileName);
-    // document.body.appendChild(link);
-    // link.click();
 }

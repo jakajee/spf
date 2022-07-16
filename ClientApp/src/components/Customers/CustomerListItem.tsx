@@ -20,7 +20,7 @@ export default (props: CustomerModel & { idx: number }) => {
 
     const selected = props.id === id ? "table-dark" : "";
 
-    return <tr style={{ cursor: "pointer" }} onClick={onSelectCustomer} className={selected}>
+    return <tr onClick={onSelectCustomer} className={`pointer ${selected}`}>
         <td>{props.idx + 1}</td>
         <td>{props.fullName}</td>
         <td>

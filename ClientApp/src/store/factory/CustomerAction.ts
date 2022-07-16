@@ -18,14 +18,10 @@ export interface SelectCustomerAction {
 
 export type CustomerCombinedAction = RequestCustomerAction | ResponseCustomerAction | SelectCustomerAction;
 
-class CustomerAction extends BaseAction<CustomerCombinedAction, CustomerModel> {   
+class CustomerAction extends BaseAction<CustomerCombinedAction, CustomerModel> {
+    protected entityName: string = "ลูกค้า";   
 
-    protected getCreateFailMessage(): string {
-        return "เพิ่มข้อมูลลูกค้าล้มเหลว"
-    }
-    protected getUpdateFailMessage(): string {
-        return "แก้ไขข้อมูลลูกค้าล้มเหลว"
-    }    
+
     protected getRequestAllAction(): CustomerCombinedAction {        
         return {
             type: 'REQ_ALL_CUSTOMERS'

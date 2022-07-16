@@ -21,11 +21,9 @@ const store = configureStore(history);
 
 ReactDOM.render(
     <Provider store={store}>
-        <ConnectedRouter history={history}>
-            <BrowserRouter basename={baseUrl}>
-                <App />
-            </BrowserRouter>
-        </ConnectedRouter>
+        <BrowserRouter basename={baseUrl}>
+            <App />
+        </BrowserRouter>
     </Provider>,
     document.getElementById('root'));
 

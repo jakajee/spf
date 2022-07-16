@@ -72,7 +72,7 @@ export default (props: ReceiptHeaderProps) => {
                 <div className="col-5">
                     <div className="row">
                         <div className="col">
-                            <label className="form-label required">เลขที่</label>
+                            <label className="form-label">เลขที่</label>
                             <input
                                 className="form-control form-control-sm"
                                 value={props.receiptNumber}
@@ -92,7 +92,7 @@ export default (props: ReceiptHeaderProps) => {
 
                     <div className="row">
                         <div className="col">
-                            <label className="form-label required">กำหนดชำระเงิน</label>
+                            <label className="form-label">กำหนดชำระเงิน</label>
                             <Select options={payments} onChange={(newVal) => props.onChangePayment(getPaymentById(newVal?.value))}
                                 styles={ReactSelectStyleFormat}
                             />

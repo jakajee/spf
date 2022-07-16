@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace SPF_Receipt.ViewModel
+﻿namespace SPF_Receipt.ViewModel
 {
     public class BaseResponse
     {

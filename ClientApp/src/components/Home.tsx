@@ -22,6 +22,11 @@ export default () => {
         headerTitle: "ข้อมูลสินค้า",
         bodyDetail: "จัดการ (เพิ่ม/แก้ไข/ลบ) ข้อมูลสินค้าที่ต้องการ",
         footerLink: "/products"
+    }, {
+        headerIcon: "tools",
+        headerTitle: "ข้อมูลหน่วย",
+        bodyDetail: "จัดการ (เพิ่ม/แก้ไข/ลบ) ข้อมูลหน่วย(เช่น บาท, กก.)ที่ต้องการ",
+        footerLink: "/units"
     }]
     return <>
         <div>

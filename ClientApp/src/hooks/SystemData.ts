@@ -2,8 +2,6 @@ import { useEffect, useState } from "react"
 import api from "../api";
 import { BaseDropdown, Option } from "./BaseModel";
 
-
-
 export type Unit = BaseDropdown;
 
 export type Payment = BaseDropdown;

@@ -3,17 +3,19 @@ import { AppThunkAction } from "..";
 import api, { BaseResponse } from "../../api";
 import { LoadedAction, LoadingAction } from "../UtilStore";
 
+type ID = string | number | null;
+
 abstract class BaseStore<KnownAction, TModel> {
 
     constructor(protected baseUrl: string) {
 
     }
 
+    protected abstract entityName: string;
+
     protected abstract getRequestAllAction(): KnownAction;
     protected abstract getResponseAllAction(response: AxiosResponse<any>): KnownAction;
     protected abstract getSelectModelAction(model: TModel): KnownAction;
-    protected abstract getCreateFailMessage(): string;
-    protected abstract getUpdateFailMessage(): string;
 
     public requestAll(): AppThunkAction<KnownAction> {
         return async (dispatch) => {
@@ -31,7 +33,7 @@ abstract class BaseStore<KnownAction, TModel> {
         return this.getSelectModelAction(selectedModel);
     }    
 
-    public deleteModel(id: string | null): AppThunkAction<KnownAction | LoadedAction | LoadingAction> {
+    public deleteModel(id: ID): AppThunkAction<KnownAction | LoadedAction | LoadingAction> {
         return async (dispatch, getState) => {
             dispatch({ type: 'LOADING' })
             const response = await api.post<BaseResponse>(`${this.baseUrl}/delete?id=${id}`);
@@ -63,6 +65,14 @@ abstract class BaseStore<KnownAction, TModel> {
                 dispatch({ type: 'LOADED', message: `${failTitle}: ${response.data.message}`, serverity: 'warning' });
             }
         }
+    }
+
+    private getCreateFailMessage() {
+        return `เพิ่มข้อมูล${this.entityName}ล้มเหลว`;
+    }
+
+    private getUpdateFailMessage() {
+        return `แก้ไขข้อมูล${this.entityName}ล้มเหลว`;
     }
 }
 
