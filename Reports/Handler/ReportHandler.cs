@@ -87,10 +87,11 @@ namespace SPF_Receipt.Reports.Handler
             {
                 var requestProduct = request.ProductList.ElementAt(i);
                 var reportProduct = data[i];
+                var qtyFormat = requestProduct.Qty % 1 != 0 ? "{0:N2}" : "{0:N0}";
 
                 reportProduct.ProductName = requestProduct.ProductName;
                 reportProduct.UnitName = requestProduct.UnitName;
-                reportProduct.Qty = string.Format("{0:N2}", requestProduct.Qty);
+                reportProduct.Qty = string.Format(qtyFormat, requestProduct.Qty);
                 reportProduct.Price = string.Format("{0:N2}", requestProduct.Price); // need to add .- or not
                 reportProduct.TotalPrice = string.Format("{0:N2}", requestProduct.TotalPrice); // need to add .- or not
             }

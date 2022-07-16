@@ -1,15 +1,9 @@
-﻿using FastReport;
-using FastReport.Export.PdfSimple;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SPF_Receipt.ViewModel;
 using System;
 using System.IO;
-using System.Linq;
-using GreatFriends.ThaiBahtText;
-using System.Globalization;
 using PdfSharp.Pdf;
 using PdfSharp.Pdf.IO;
-using System.Collections.Generic;
 using SPF_Receipt.Reports.Manager;
 
 namespace SPF_Receipt.Controllers

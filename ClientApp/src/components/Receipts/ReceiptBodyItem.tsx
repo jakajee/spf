@@ -15,11 +15,13 @@ export default (props: ReceiptBodyItemModel & {
         props.onRemoveProduct(props.id as string);
     }
 
+    const qtyFormat = props.qty % 1 !== 0 ? "0,0.00" : "0,0";
+
     return (
         <tr>
             <td>{props.idx}</td>
             <td>{props.name}</td>
-            <td className="text-end"><NumberValue value={props.qty} format="0,0" /> - {props.unit?.name}</td>
+            <td className="text-end"><NumberValue value={props.qty} format={qtyFormat} /> - {props.unit?.name}</td>
             <td className="text-end"><NumberValue value={props.price} /></td>
             <td className="text-end"><NumberValue value={props.total} /></td>
             <td className="text-center">

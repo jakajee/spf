@@ -1,10 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using SPF_Receipt.DataAccess;
 using SPF_Receipt.Reports.Manager;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SPF_Receipt.App_Config
 {
