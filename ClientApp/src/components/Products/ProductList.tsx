@@ -1,29 +1,30 @@
 import { connect } from "react-redux"
 import { ApplicationState } from "../../store"
 import { ProductState } from "../../store/ProductsStore"
+import SimpleTable from "../../util/SimpleTable";
 import ProductListItem from "./ProductListItem"
 
 type ProductListProps = ProductState;
 
-function ProductList({ products }: ProductListProps) {    
+function ProductList({ products }: ProductListProps) {
     const productItems = products.map((item, idx) => <ProductListItem {...item} no={idx + 1} key={item.id} />)
 
     return (
         <>
-            <table className="table table-bordered table-sm table-hover">
-                <thead className="table-primary">
+            <SimpleTable.Table>
+                <SimpleTable.THead>
                     <tr>
                         <th></th>
                         <th>ชื่อสินค้า</th>
                         <th>ราคา (บาท)</th>
                         <th>หน่วย</th>
-                        <th></th>
+                        <th style={{ width: 100 }}></th>
                     </tr>
-                </thead>
-                <tbody>
+                </SimpleTable.THead>
+                <SimpleTable.TBody>
                     {productItems}
-                </tbody>
-            </table>
+                </SimpleTable.TBody>
+            </SimpleTable.Table>
         </>
     )
 }

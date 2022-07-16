@@ -1,7 +1,7 @@
 ﻿import { useDispatch, useSelector } from "react-redux"
 import { ApplicationState } from "../../store"
 import { CustomerActions, CustomerModel } from "../../store/CustomerStore";
-import Icon from "../../util/Icon";
+import { IconWithText } from "../../util/Icon";
 
 function getInitialForm(): CustomerModel {
     return {
@@ -100,12 +100,10 @@ export default () => {
                     <div className="row">
                         <div className="col">
                             <button type="submit" className="btn btn-sm btn-success me-2" disabled={invalidForm}>
-                                <Icon name="check-circle" />
-                                บันทึก
+                                <IconWithText name="check-circle" label="บันทึก" />
                             </button>
                             <button type="reset" className="btn btn-sm btn-secondary">
-                                <Icon name="arrow-counterclockwise" />
-                                เคลียร์
+                                <IconWithText name="arrow-counterclockwise" label="เคลียร์" />
                             </button>
                         </div>
                     </div>

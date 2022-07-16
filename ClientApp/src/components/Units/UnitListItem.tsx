@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ApplicationState } from "../../store";
 import { UnitActions, UnitModel } from "../../store/UnitStore";
-import Icon from "../../util/Icon";
+import { IconWithText } from "../../util/Icon";
 
 function UnitListItem(props: UnitModel & { idx: number }) {
     const dispatch = useDispatch();
@@ -29,12 +29,11 @@ function UnitListItem(props: UnitModel & { idx: number }) {
 
     return <>
         <tr className={`pointer ${selected}`} onClick={onSelectUnit}>
-            <td>{idx + 1}</td>
+            <td className="text-center">{idx + 1}</td>
             <td>{name}</td>
             <td className="text-center">
                 <button className="btn btn-sm btn-danger" onClick={onRemoveUnit}>
-                    <Icon name="x-circle" />
-                    ลบ
+                    <IconWithText name="x-circle" label="ลบ" />
                 </button>
             </td>
         </tr>
