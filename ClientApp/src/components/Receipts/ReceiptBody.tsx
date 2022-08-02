@@ -4,6 +4,7 @@ import { Option } from "../../hooks/BaseModel";
 import { useProductList } from "../../hooks/MasterData";
 import { ReactSelectStyleFormat } from "../../util/Format";
 import Icon from "../../util/Icon";
+import SimpleLabel from "../../util/SimpleLabel";
 import ReceiptBodyItem, { ReceiptBodyItemModel } from "./ReceiptBodyItem";
 
 interface ReceiptBodyProps {
@@ -18,7 +19,8 @@ const defaultTransaction: ReceiptBodyItemModel = {
     price: 0,
     unit: null,
     qty: 0,
-    total: 0
+    total: 0,
+    isQtyDecimal: false
 }
 
 export default (props: ReceiptBodyProps) => {
@@ -33,7 +35,7 @@ export default (props: ReceiptBodyProps) => {
     const [transaction, setTransaction] = useState<ReceiptBodyItemModel>(defaultTransaction)
     const { qty, price } = transaction;
 
-     const [optionProduct, setSelectOptionProduct] = useState<SingleValue<Option>>(null);
+    const [optionProduct, setSelectOptionProduct] = useState<SingleValue<Option>>(null);
 
     useEffect(() => {
         if (qty > 0 && price > 0) {
@@ -66,6 +68,13 @@ export default (props: ReceiptBodyProps) => {
         })
     }
 
+    function updateIsQtyDecimal(e: React.ChangeEvent<HTMLInputElement>) {
+        setTransaction({
+            ...transaction,
+            isQtyDecimal: !transaction.isQtyDecimal
+        })
+    }
+
     function setProduct(productId?: string) {
         const data = products.filter(e => e.id === productId)[0];
         setTransaction({
@@ -92,16 +101,16 @@ export default (props: ReceiptBodyProps) => {
             <form onSubmit={onSubmit}>
                 <div className="row mb-2">
                     <div className="col-6">
-                        <label className="form-label required">สินค้า</label>
-                        <Select 
-                            options={productsOptions} 
-                            onChange={(newValue) => setSelectOptionProduct(newValue)} 
+                        <SimpleLabel title="สินค้า" required />
+                        <Select
+                            options={productsOptions}
+                            onChange={(newValue) => setSelectOptionProduct(newValue)}
                             value={optionProduct}
                             styles={ReactSelectStyleFormat}
                         />
                     </div>
                     <div className="col-2">
-                        <label className="form-label required">จำนวน</label>
+                        <SimpleLabel title="จำนวน" required />
                         <div className="input-group input-group-sm">
                             <input type="text" name="qty" className="form-control form-control-sm text-end" onChange={updateModelValue}
                                 value={qty} />
@@ -109,7 +118,7 @@ export default (props: ReceiptBodyProps) => {
                         </div>
                     </div>
                     <div className="col-2">
-                        <label className="form-label required">ราคาต่อหน่วย</label>
+                        <SimpleLabel title="ราคาต่อหน่วย" required />
                         <div className="input-group input-group-sm">
                             <input type="text" name="price" className="form-control form-control-sm text-end" onChange={updateModelValue}
                                 value={price} />
@@ -117,7 +126,7 @@ export default (props: ReceiptBodyProps) => {
                         </div>
                     </div>
                     <div className="col-2">
-                        <label className="form-label required">จำนวนเงิน</label>
+                        <SimpleLabel title="จำนวนเงิน" required />
                         <div className="input-group input-group-sm">
                             <input type="text" name="total" className="form-control form-control-sm text-end" onChange={updateModelValue} value={transaction.total} />
                             <span className="input-group-text">.-</span>
@@ -125,7 +134,11 @@ export default (props: ReceiptBodyProps) => {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col">
+                    <div className="d-flex">
+                        <div className="form-check me-2">
+                            <input className="form-check-input" type="checkbox" id="chkIsQtyDecimal" checked={transaction.isQtyDecimal} onChange={updateIsQtyDecimal} />
+                            <label className="form-check-label" htmlFor="chkIsQtyDecimal">จำนวนมีจุดทศนิยม</label>
+                        </div>
                         <button type="submit" className="btn btn-sm btn-success" disabled={isInvalid()}>
                             <Icon name="plus-circle" />
                             เพิ่ม

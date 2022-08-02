@@ -87,7 +87,7 @@ namespace SPF_Receipt.Reports.Handler
             {
                 var requestProduct = request.ProductList.ElementAt(i);
                 var reportProduct = data[i];
-                var qtyFormat = requestProduct.Qty % 1 != 0 ? "{0:N2}" : "{0:N0}";
+                var qtyFormat = requestProduct.IsQtyDecimal ? "{0:N2}" : "{0:N0}";
 
                 reportProduct.ProductName = requestProduct.ProductName;
                 reportProduct.UnitName = requestProduct.UnitName;

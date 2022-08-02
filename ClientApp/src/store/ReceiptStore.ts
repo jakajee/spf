@@ -22,7 +22,8 @@ export async function printReceipt(receiptModel: ReceiptMainState, dispatch: (ac
             unitName: p.unit?.name,
             qty: p.qty,
             price: p.price,
-            totalPrice: p.total
+            totalPrice: p.total,
+            isQtyDecimal: p.isQtyDecimal
         })),
         receiptSummary: receiptModel.receiptFooterModel
     }

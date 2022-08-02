@@ -38,5 +38,6 @@ namespace SPF_Receipt.ViewModel
         public TQty Qty { get; set; }
         public TMoney Price { get; set; }
         public TMoney TotalPrice { get; set; }
+        public bool IsQtyDecimal { get; set; }
     }
 }

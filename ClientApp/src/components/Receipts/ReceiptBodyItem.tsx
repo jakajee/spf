@@ -4,7 +4,8 @@ import { NumberValue } from "../../util/Number";
 
 export interface ReceiptBodyItemModel extends ProductModel {
     qty: number,
-    total: number
+    total: number,
+    isQtyDecimal: boolean
 }
 
 export default (props: ReceiptBodyItemModel & {
@@ -15,7 +16,7 @@ export default (props: ReceiptBodyItemModel & {
         props.onRemoveProduct(props.id as string);
     }
 
-    const qtyFormat = props.qty % 1 !== 0 ? "0,0.00" : "0,0";
+    const qtyFormat = props.isQtyDecimal ? "0,0.00" : "0,0";
 
     return (
         <tr>
